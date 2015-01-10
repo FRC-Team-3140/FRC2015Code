@@ -26,18 +26,12 @@ public class Drive extends Command {
 
     
 	private DriveSystem chassis;
-    private Joystick xbox;
-    private double leftJoystick;
-    private double rightJoystick;
-    private double rightTrigger;
-    private double leftTrigger;
     private double joystickTolerance;
     private boolean lowGear;
     private boolean reverse;
     private String mode;
 
-    public Drive(DriveSystem drivetrain, Joystick joystick,
-    		String driveType, boolean reverseMotors) {
+    public Drive(DriveSystem drivetrain, Joystick joystick) {
         // Use Reverse if going forwards is turning
         // change to non linear!~!@~!@~!@~!@~!@
     	
