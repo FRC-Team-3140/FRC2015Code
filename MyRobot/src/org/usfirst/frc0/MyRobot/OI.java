@@ -76,7 +76,7 @@ public class OI {
             joystick = new Joystick(leftJoystickPin);
             rightJoystick = new Joystick(rightJoystickPin);
         } else {
-            OI();
+        	joystick = new Joystick(joystickPin);
         }
     }
 
