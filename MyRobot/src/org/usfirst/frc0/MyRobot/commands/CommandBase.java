@@ -12,6 +12,8 @@
 package org.usfirst.frc0.MyRobot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
+
+import org.usfirst.frc0.MyRobot.OI;
 import org.usfirst.frc0.MyRobot.Robot;
 import org.usfirst.frc0.MyRobot.subsystems.*;
 
@@ -21,6 +23,7 @@ import org.usfirst.frc0.MyRobot.subsystems.*;
 public class  CommandBase extends Command {
 
     public static DriveTrain driveTrain = new DriveTrain();
+    public static OI oi = new OI();
 
 
     public CommandBase() {
