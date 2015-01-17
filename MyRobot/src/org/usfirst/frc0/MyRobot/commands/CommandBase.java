@@ -24,7 +24,7 @@ public class  CommandBase extends Command {
 
     public static DriveTrain driveTrain = new DriveTrain();
     public static OI oi = new OI();
-
+    public static WinchLifter lifter = new WinchLifter();
 
     public CommandBase() {
         // Use requires() here to declare subsystem dependencies
