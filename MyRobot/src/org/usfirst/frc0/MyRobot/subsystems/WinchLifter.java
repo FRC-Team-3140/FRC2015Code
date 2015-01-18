@@ -29,6 +29,7 @@ public class WinchLifter extends Subsystem implements ILifter{
 	
 
     public void initDefaultCommand() {
+    	setDefaultCommand(new Lift());
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
     }
