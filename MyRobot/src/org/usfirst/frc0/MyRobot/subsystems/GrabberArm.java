@@ -28,6 +28,7 @@ public class GrabberArm extends Subsystem implements IGrabber {
     // here. Call these from Commands.
 
     public void initDefaultCommand() {
+    	setDefaultCommand(new Grabber());
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
     }
