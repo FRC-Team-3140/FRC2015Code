@@ -1,6 +1,7 @@
 package org.usfirst.frc0.MyRobot.subsystems;
 
 import org.usfirst.frc0.MyRobot.RobotMap;
+import org.usfirst.frc0.MyRobot.commands.Grabber;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;

@@ -1,6 +1,7 @@
 package org.usfirst.frc0.MyRobot.subsystems;
 
 import org.usfirst.frc0.MyRobot.RobotMap;
+import org.usfirst.frc0.MyRobot.commands.Lift;
 
 import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.Relay.Direction;
