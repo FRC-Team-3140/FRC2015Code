@@ -13,7 +13,7 @@ public class DriveTrain extends Subsystem {
     private static SpeedController rightDriveMotor = RobotMap.rightDriveMotor;
 
     public void setLeftPower(double power) {
-        leftDriveMotor.set(power);
+        leftDriveMotor.set(-1*power);
     }
 
     public void setRightPower(double power) {
@@ -27,7 +27,8 @@ public class DriveTrain extends Subsystem {
 
 	@Override
 	protected void initDefaultCommand() {
-		// TODO Auto-generated method stub
+		setDefaultCommand(new TankDrive());
+		
 		
 	}
 

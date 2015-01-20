@@ -7,13 +7,13 @@ import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.Relay.Direction;
 import edu.wpi.first.wpilibj.Relay.Value;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
  */
 public class WinchLifter extends Subsystem implements ILifter{
 	private Relay winchMotor = RobotMap.winchMotor;
-	
 	public void liftUp() {
 		winchMotor.setDirection(Direction.kForward);
 	}

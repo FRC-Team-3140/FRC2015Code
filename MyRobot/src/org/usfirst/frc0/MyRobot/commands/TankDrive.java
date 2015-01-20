@@ -27,7 +27,7 @@ public class TankDrive extends CommandBase {
 
 
     public TankDrive() {
-        requires(Robot.driveTrain);
+        requires(driveTrain);
     }
         
 
