@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  *
  */
 public class WinchLifter extends Subsystem implements ILifter{
+	
 	private SpeedController winchMotor = RobotMap.winchMotor;
 	
 	public void liftUp() {
