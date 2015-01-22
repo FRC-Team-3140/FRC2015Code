@@ -1,6 +1,5 @@
 package org.usfirst.frc0.MyRobot.commands;
 
-import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
@@ -19,13 +18,7 @@ public class Lift extends CommandBase {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	if (oi.getLiftStopButton()) {
-    		lifter.liftStop();
-    	} else if (oi.getLiftUpButton()) {
-    		lifter.liftUp();
-    	} else if (oi.getLiftDownButton()) {
-    		lifter.liftDown();
-    	}
+    	lifter.moveLift(oi.getLiftSpeed());
     }
 
     // Make this return true when this Command no longer needs to run execute()

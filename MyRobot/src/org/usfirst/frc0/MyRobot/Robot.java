@@ -72,7 +72,6 @@ public class Robot extends IterativeRobot {
     }
 
     public void disabledPeriodic() {
-    	new TankDrive();
         Scheduler.getInstance().run();
     }
 

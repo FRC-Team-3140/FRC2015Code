@@ -20,13 +20,13 @@ public class Grabber extends CommandBase {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	if (oi.getGrabberStopButton()) {
-    		grabber.grabberStop();
-    	} else if (oi.getGrabberOpenButton()) {
-    		grabber.grabberOpen();
+    	if (oi.getGrabberOpenButton()) {
+	    grabber.grabberOpen();
     	} else if (oi.getGrabberCloseButton()) {
-    		grabber.grabberClose();
-    	}
+	    grabber.grabberClose();
+	} else {
+	    grabber.grabberStop();
+	}
     }
 
     // Make this return true when this Command no longer needs to run execute()

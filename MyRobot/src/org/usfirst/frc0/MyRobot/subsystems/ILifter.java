@@ -6,10 +6,9 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public interface ILifter {
 	
-	public void liftUp();
-	public void liftDown();
-	public void liftStop();
+	public void moveLift(double power);
+	public void stop();
 	//Move lifter to a certain position between 0-5
-	public void moveTo(int position);
+	public void moveTo(double position);
 		
 }

@@ -61,7 +61,7 @@ public class TankDrive extends CommandBase {
     }
     
     public void setLeftSpeed(double speed){
-        driveTrain.setRightPower(speed);
+        driveTrain.setLeftPower(speed);
     }
     
     public void setRightSpeed(double speed){

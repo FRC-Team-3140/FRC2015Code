@@ -13,7 +13,7 @@ public class DriveTrain extends Subsystem {
     private static SpeedController rightDriveMotor = RobotMap.rightDriveMotor;
 
     public void setLeftPower(double power) {
-        leftDriveMotor.set(-1*power);
+        leftDriveMotor.set(power);
     }
 
     public void setRightPower(double power) {
