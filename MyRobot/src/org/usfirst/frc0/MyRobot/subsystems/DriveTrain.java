@@ -7,28 +7,27 @@ import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class DriveTrain extends Subsystem {
-    
-    private static SpeedController leftDriveMotor = RobotMap.leftDriveMotor;
-    private static SpeedController rightDriveMotor = RobotMap.rightDriveMotor;
 
-    public void setLeftPower(double power) {
-        leftDriveMotor.set(power);
-    }
+	private static SpeedController leftDriveMotor = RobotMap.leftDriveMotor;
+	private static SpeedController rightDriveMotor = RobotMap.rightDriveMotor;
 
-    public void setRightPower(double power) {
-        rightDriveMotor.set(power);
-    }
+	public void setLeftPower(double power) {
+		leftDriveMotor.set(power);
+	}
 
-    public void setPower(double leftPower, double rightPower) {
-        setLeftPower(leftPower);
-        setRightPower(rightPower);
-    }
+	public void setRightPower(double power) {
+		rightDriveMotor.set(power);
+	}
+
+	public void setPower(double leftPower, double rightPower) {
+		setLeftPower(leftPower);
+		setRightPower(rightPower);
+	}
 
 	@Override
 	protected void initDefaultCommand() {
 		setDefaultCommand(new TankDrive());
-		
-		
+
 	}
 
 }

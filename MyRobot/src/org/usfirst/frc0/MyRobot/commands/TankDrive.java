@@ -8,7 +8,6 @@
 // update. Deleting the comments indicating the section will prevent
 // it from being updated in the future.
 
-
 package org.usfirst.frc0.MyRobot.commands;
 
 /**
@@ -16,64 +15,57 @@ package org.usfirst.frc0.MyRobot.commands;
  */
 public class TankDrive extends CommandBase {
 
+	public TankDrive() {
+		requires(driveTrain);
+	}
 
-    public TankDrive() {
-        requires(driveTrain);
-    }
-        
+	// gets the new joystick and trigger values
+	/*
+	 * public void update(){ leftJoystick = Math.pow(xbox.getRawAxis(1),3);
+	 * rightJoystick = Math.pow(xbox.getRawAxis(5),3); leftTrigger =
+	 * xbox.getRawAxis(2); leftTrigger = Math.pow(leftTrigger,2) *
+	 * Math.signum(leftTrigger); rightTrigger = xbox.getRawAxis(3); rightTrigger
+	 * = Math.pow(rightTrigger,2) * Math.signum(rightTrigger); lowGear =
+	 * xbox.getRawButton(4); SmartDashboard.putNumber("leftAxis",leftJoystick);
+	 * SmartDashboard.putNumber("rightAxis", rightJoystick);
+	 * SmartDashboard.putNumber("leftTrigger",leftTrigger);
+	 * SmartDashboard.putNumber("rightTrigger",rightTrigger);
+	 * SmartDashboard.putBoolean("lowGear", lowGear); }
+	 */
 
-    
-    // gets the new joystick and trigger values
-    /* public void update(){
-        leftJoystick = Math.pow(xbox.getRawAxis(1),3);
-        rightJoystick = Math.pow(xbox.getRawAxis(5),3);
-        leftTrigger = xbox.getRawAxis(2);
-        leftTrigger = Math.pow(leftTrigger,2) * Math.signum(leftTrigger);
-        rightTrigger = xbox.getRawAxis(3);
-        rightTrigger = Math.pow(rightTrigger,2) * Math.signum(rightTrigger);
-        lowGear = xbox.getRawButton(4);
-        SmartDashboard.putNumber("leftAxis",leftJoystick);
-        SmartDashboard.putNumber("rightAxis", rightJoystick);
-        SmartDashboard.putNumber("leftTrigger",leftTrigger);
-        SmartDashboard.putNumber("rightTrigger",rightTrigger);
-        SmartDashboard.putBoolean("lowGear", lowGear);
-    } */
-    
-    
-    
-    // Called just before this Command runs the first time
-    protected void initialize() {
-        
-    }
-    
-    public void setSpeeds(double lSpeed,double rSpeed){
-    	driveTrain.setPower(lSpeed,rSpeed);
-    }
-    
-    public void setLeftSpeed(double speed){
-        driveTrain.setLeftPower(speed);
-    }
-    
-    public void setRightSpeed(double speed){
-        driveTrain.setRightPower(speed);
-    }
-    
-    // Called repeatedly when this Command is scheduled to run
-    protected void execute() {
-        setSpeeds(oi.getLeftDriveAxis(), oi.getRightDriveAxis());
-    }
+	// Called just before this Command runs the first time
+	protected void initialize() {
 
-    // Make this return true when this Command no longer needs to run execute()
-    protected boolean isFinished() {
-        return false;
-    }
+	}
 
-    // Called once after isFinished returns true
-    protected void end() {
-    }
+	public void setSpeeds(double lSpeed, double rSpeed) {
+		driveTrain.setPower(lSpeed, rSpeed);
+	}
 
-    // Called when another command which requires one or more of the same
-    // subsystems is scheduled to run
-    protected void interrupted() {
-    }
+	public void setLeftSpeed(double speed) {
+		driveTrain.setLeftPower(speed);
+	}
+
+	public void setRightSpeed(double speed) {
+		driveTrain.setRightPower(speed);
+	}
+
+	// Called repeatedly when this Command is scheduled to run
+	protected void execute() {
+		setSpeeds(oi.getLeftDriveAxis(), oi.getRightDriveAxis());
+	}
+
+	// Make this return true when this Command no longer needs to run execute()
+	protected boolean isFinished() {
+		return false;
+	}
+
+	// Called once after isFinished returns true
+	protected void end() {
+	}
+
+	// Called when another command which requires one or more of the same
+	// subsystems is scheduled to run
+	protected void interrupted() {
+	}
 }

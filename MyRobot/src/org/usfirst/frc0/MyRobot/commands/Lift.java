@@ -7,37 +7,36 @@ import org.usfirst.frc0.MyRobot.subsystems.WinchLifter;
  */
 public class Lift extends CommandBase {
 
-    public Lift() {
-        // Use requires() here to declare subsystem dependencies
-        // eg. requires(chassis);
-    	requires(lifter);
-    }
+	public Lift() {
+		// Use requires() here to declare subsystem dependencies
+		// eg. requires(chassis);
+		requires(lifter);
+	}
 
-    // Called just before this Command runs the first time
-    protected void initialize() {
-    }
+	// Called just before this Command runs the first time
+	protected void initialize() {
+	}
 
-    public void lift(double move) {
-    	lifter.moveLift(move);
-    }
-    
-    
-    // Called repeatedly when this Command is scheduled to run
-    protected void execute() {
-    	lift(oi.getLiftSpeed());
-    }
+	public void lift(double move) {
+		lifter.moveLift(move);
+	}
 
-    // Make this return true when this Command no longer needs to run execute()
-    protected boolean isFinished() {
-        return false;
-    }
+	// Called repeatedly when this Command is scheduled to run
+	protected void execute() {
+		lift(oi.getLiftSpeed());
+	}
 
-    // Called once after isFinished returns true
-    protected void end() {
-    }
+	// Make this return true when this Command no longer needs to run execute()
+	protected boolean isFinished() {
+		return false;
+	}
 
-    // Called when another command which requires one or more of the same
-    // subsystems is scheduled to run
-    protected void interrupted() {
-    }
+	// Called once after isFinished returns true
+	protected void end() {
+	}
+
+	// Called when another command which requires one or more of the same
+	// subsystems is scheduled to run
+	protected void interrupted() {
+	}
 }
