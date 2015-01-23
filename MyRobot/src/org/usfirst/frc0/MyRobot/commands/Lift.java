@@ -1,5 +1,6 @@
 package org.usfirst.frc0.MyRobot.commands;
 
+import org.usfirst.frc0.MyRobot.subsystems.WinchLifter;
 
 /**
  *
@@ -16,9 +17,14 @@ public class Lift extends CommandBase {
     protected void initialize() {
     }
 
+    public void lift(double move) {
+    	lifter.moveLift(move);
+    }
+    
+    
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	lifter.moveLift(oi.getLiftSpeed());
+    	lift(oi.getLiftSpeed());
     }
 
     // Make this return true when this Command no longer needs to run execute()

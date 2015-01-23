@@ -11,15 +11,6 @@
 
 package org.usfirst.frc0.MyRobot.commands;
 
-import edu.wpi.first.wpilibj.Joystick;
-
-import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
-import org.usfirst.frc0.MyRobot.subsystems.DriveTrain;
-import org.usfirst.frc0.MyRobot.OI;
-import org.usfirst.frc0.MyRobot.Robot;
-
 /**
  *
  */
@@ -57,7 +48,6 @@ public class TankDrive extends CommandBase {
     
     public void setSpeeds(double lSpeed,double rSpeed){
     	driveTrain.setPower(lSpeed,rSpeed);
-
     }
     
     public void setLeftSpeed(double speed){
@@ -70,7 +60,7 @@ public class TankDrive extends CommandBase {
     
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        setSpeeds(oi.getRightDriveAxis(), oi.getLeftDriveAxis());
+        setSpeeds(oi.getLeftDriveAxis(), oi.getRightDriveAxis());
     }
 
     // Make this return true when this Command no longer needs to run execute()

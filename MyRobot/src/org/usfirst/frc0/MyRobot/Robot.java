@@ -12,10 +12,7 @@
 package org.usfirst.frc0.MyRobot;
 
 import org.usfirst.frc0.MyRobot.commands.AutonomousCommand;
-import org.usfirst.frc0.MyRobot.commands.Grabber;
 import org.usfirst.frc0.MyRobot.commands.TankDrive;
-import org.usfirst.frc0.MyRobot.subsystems.DriveTrain;
-import org.usfirst.frc0.MyRobot.subsystems.ILifter;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;

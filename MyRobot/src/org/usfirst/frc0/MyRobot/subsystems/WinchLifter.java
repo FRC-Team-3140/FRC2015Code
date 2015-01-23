@@ -13,25 +13,14 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class WinchLifter extends Subsystem implements ILifter{
 	
-    private SpeedController winchMotor = RobotMap.winchMotor;
-    private DigitalInput limitSwitch = new DigitalInput(1);
-    private Counter counter = new Counter(limitSwitch);
-    private double location = 0.0;
-
-    public boolean isSwitchSet() {
-	return counter.get() > 0;
-    }
-
-    public void initializeCounter() {
-	counter.reset();
-    }
+    // private SpeedController winchMotor = RobotMap.winchMotor;
 
     public void moveLift(double power) {
-	winchMotor.set(power); 
+	// winchMotor.set(power);
     }
 
     public void stop() {
-	winchMotor.set(0);
+	// winchMotor.set(0);
     }
 	
 	

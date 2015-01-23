@@ -13,7 +13,6 @@ package org.usfirst.frc0.MyRobot;
     
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
-import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.Talon;
@@ -51,8 +50,8 @@ public class RobotMap {
         rightDriveMotor = new Talon(rightDriveMotorPin);
         LiveWindow.addActuator("driveTrain", "Right Motor", (Talon) rightDriveMotor);
         
-        winchMotor = new Talon(winchMotorPin);
-        LiveWindow.addActuator("chainLifter", "Elevator Motor", (Talon) winchMotor);
+        // winchMotor = new Talon(winchMotorPin);
+        // LiveWindow.addActuator("chainLifter", "Elevator Motor", (Talon) winchMotor);
         
         robotDrive = new RobotDrive(leftDriveMotor, rightDriveMotor);
         
@@ -61,10 +60,10 @@ public class RobotMap {
         robotDrive.setSensitivity(0.5);
         robotDrive.setMaxOutput(1.0);
 
-	robotDrive.setInvertedMotor(RobotDrive.MotorType.kRearLeft, true);
+        robotDrive.setInvertedMotor(RobotDrive.MotorType.kRearLeft, true);
         robotDrive.setInvertedMotor(RobotDrive.MotorType.kRearRight, true);
         
-        compressor = new Compressor(compressorPin);
+        // compressor = new Compressor(compressorPin);
         
         
 
