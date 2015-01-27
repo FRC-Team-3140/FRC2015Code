@@ -1,6 +1,9 @@
 package org.usfirst.frc0.MyRobot.commands;
 
+import org.usfirst.frc0.MyRobot.OI;
+
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
@@ -21,25 +24,48 @@ public class Grabber extends CommandBase {
 	public void open() {
 		grabber.grabberOpen();
 	}
-	
+
 	public void close() {
 		grabber.grabberClose();
 	}
-	
+
 	public void stop() {
 		grabber.grabberStop();
 	}
-	
-	
+
+	public void turnOnCompressor() {
+		grabber.startCompressor();
+	}
+
+	public void turnOffCompressor() {
+		grabber.stopCompressor();
+	}
+
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		int state = oi.getGrabberButton();
-		if (state == 1) {
+		OI.GrabberState state = oi.getGrabberButton();
+		SmartDashboard.putString("state", state.getName());
+		switch (state) {
+		case OPEN: {
 			open();
-		} else if (state == 0) {
+			break;
+		}
+		case CLOSE: {
 			close();
-		} else {
+			break;
+		}
+		case ON: {
+			turnOnCompressor();
+			break;
+		}
+		case OFF: {
+			turnOffCompressor();
+			break;
+		}
+		case STOP: {
 			stop();
+			break;
+		}
 		}
 	}
 

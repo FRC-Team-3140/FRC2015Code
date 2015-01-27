@@ -22,6 +22,19 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * interface to the commands and command groups that allow control of the robot.
  */
 public class OI {
+	public enum GrabberState {
+		OPEN("open"), CLOSE("close"), OFF("off"), ON("on"), STOP("stop");
+		String name;
+
+		private GrabberState(String s) {
+			this.name = s;
+		}
+
+		public String getName() {
+			return "GrabberState." + this.name;
+		}
+	}
+
 	// // CREATING BUTTONS
 	// One type of button is a joystick button which is any button on a
 	// joystick.
@@ -59,7 +72,7 @@ public class OI {
 
 	private boolean lowGear = false;
 	private boolean tankDrive = false;
-	private double liftSpeed = 0.5;
+	private double liftSpeed = 1;
 
 	private static final int joystickPin = 0;
 	private static final int tankJoystickPin = 1;
@@ -77,11 +90,6 @@ public class OI {
 		if (joystick[1].getAxisCount() != 0) {
 			tankDrive = true;
 		}
-
-		liftUpButton = new JoystickButton(joystick[0], 1);
-		liftDownButton = new JoystickButton(joystick[0], 2);
-		grabberOpenButton = new JoystickButton(joystick[0], 3);
-		grabberCloseButton = new JoystickButton(joystick[0], 4);
 
 	}
 
@@ -149,28 +157,31 @@ public class OI {
 				} else {
 					return 0.0;
 				}
-				}
-			} else {
-				liftSpeed = Math.abs(liftSpeed + 0.05
-						* joystick[0].getRawAxis(6));
-				if (joystick[0].getRawButton(3)) {
-					return liftSpeed;
-				} else if (joystick[0].getRawButton(4)) {
-					return -1.0 * liftSpeed;
-				} else {
-					return 0.0;
-				}
 			}
-		return 0;
-		}
-
-	public int getGrabberButton() {
-		if (grabberOpenButton.get()) {
-			return 1;
-		} else if (grabberCloseButton.get()) {
-			return -1;
 		} else {
-			return 0;
+			liftSpeed = Math.abs(liftSpeed + 0.05 * joystick[0].getRawAxis(6));
+			if (joystick[0].getRawButton(3)) {
+				return liftSpeed;
+			} else if (joystick[0].getRawButton(4)) {
+				return -1.0 * liftSpeed;
+			} else {
+				return 0.0;
+			}
+		}
+		return 0;
+	}
+
+	public GrabberState getGrabberButton() {
+		if (joystick[0].getRawButton(5)) {
+			return GrabberState.OPEN;
+		} else if (joystick[0].getRawButton(6)) {
+			return GrabberState.CLOSE;
+		} else if (joystick[0].getRawButton(7)) {
+			return GrabberState.OFF;
+		} else if (joystick[0].getRawButton(8)) {
+			return GrabberState.ON;
+		} else {
+			return GrabberState.STOP;
 		}
 	}
 
