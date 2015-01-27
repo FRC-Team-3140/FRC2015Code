@@ -12,6 +12,8 @@ package org.usfirst.frc0.MyRobot;
 
 import org.usfirst.frc0.MyRobot.commands.AutonomousCommand;
 import org.usfirst.frc0.MyRobot.commands.TankDrive;
+import org.usfirst.frc0.MyRobot.commands.Grabber;
+import org.usfirst.frc0.MyRobot.commands.Lift;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -89,8 +91,7 @@ public class Robot extends IterativeRobot {
 		// teleop starts running. If you want the autonomous to
 		// continue until interrupted by another command, remove
 		// this line or comment it out.
-		if (autonomousCommand != null)
-			autonomousCommand.cancel();
+		if (autonomousCommand != null) autonomousCommand.cancel();
 	}
 
 	/**
@@ -98,6 +99,8 @@ public class Robot extends IterativeRobot {
 	 */
 	public void teleopPeriodic() {
 		new TankDrive();
+		new Lift();
+		new Grabber();
 		Scheduler.getInstance().run();
 	}
 

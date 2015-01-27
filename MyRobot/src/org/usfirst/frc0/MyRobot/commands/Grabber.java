@@ -18,14 +18,28 @@ public class Grabber extends CommandBase {
 	protected void initialize() {
 	}
 
+	public void open() {
+		grabber.grabberOpen();
+	}
+	
+	public void close() {
+		grabber.grabberClose();
+	}
+	
+	public void stop() {
+		grabber.grabberStop();
+	}
+	
+	
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		if (oi.getGrabberOpenButton()) {
-			grabber.grabberOpen();
-		} else if (oi.getGrabberCloseButton()) {
-			grabber.grabberClose();
+		int state = oi.getGrabberButton();
+		if (state == 1) {
+			open();
+		} else if (state == 0) {
+			close();
 		} else {
-			grabber.grabberStop();
+			stop();
 		}
 	}
 

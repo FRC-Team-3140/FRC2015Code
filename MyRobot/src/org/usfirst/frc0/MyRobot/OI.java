@@ -10,6 +10,8 @@
 
 package org.usfirst.frc0.MyRobot;
 
+import java.io.IOException;
+
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
@@ -56,9 +58,8 @@ public class OI {
 	private Button grabberOpenButton;
 
 	private boolean lowGear = false;
+	private boolean tankDrive = false;
 	private double liftSpeed = 0.5;
-
-	private static double speedMultiplier = 0.50;
 
 	private static final int joystickPin = 0;
 	private static final int tankJoystickPin = 1;
@@ -71,10 +72,10 @@ public class OI {
 	public OI() {
 		joystick = new Joystick[2];
 		joystick[0] = new Joystick(joystickPin);
-		try {
-			joystick[1] = new Joystick(tankJoystickPin);
-		} catch (IndexOutOfBoundsException failure) {
-
+		joystick[1] = new Joystick(tankJoystickPin);
+		SmartDashboard.putBoolean("joysticks", true);
+		if (joystick[1].getAxisCount() != 0) {
+			tankDrive = true;
 		}
 
 		liftUpButton = new JoystickButton(joystick[0], 1);
@@ -96,45 +97,39 @@ public class OI {
 	// returns the value of the y axis on the right joystick and sets the
 	// low gear status to change if they are pressing the button
 	private double getRawRightDriveAxis() {
-		if (joystick.length > 1) {
+		if (tankDrive) {
 			SmartDashboard.putNumber("right joystick degree",
 					joystick[1].getRawAxis(1));
 			return joystick[1].getRawAxis(1);
 
 		}
-		if (joystick[0].getRawButton(2)) {
-			lowGear = !lowGear;
-		}
-		return joystick[0].getRawAxis(1);
+		SmartDashboard.putNumber("right", joystick[0].getRawAxis(5));
+		return joystick[0].getRawAxis(5);
 	}
 
 	public double getRightDriveAxis() {
-		if (joystick.length > 1) {
+		if (tankDrive) {
 			return joystickTolerance(getRawRightDriveAxis(), joystickDeadzone);
 		}
-		speedMultiplier = lowGear ? 0.50 : 1;
-		return speedMultiplier
-				* joystickTolerance(getRawRightDriveAxis(), xboxDeadzone);
+		return .5 * Math.pow(
+				joystickTolerance(getRawRightDriveAxis(), xboxDeadzone), 3);
 	}
 
 	// returns the y axis on the left joystick
 	private double getRawLeftDriveAxis() {
-		if (joystick.length > 1) {
+		if (tankDrive) {
 			return joystick[0].getRawAxis(1);
 		}
-		if (joystick[0].getRawButton(2)) {
-			lowGear = !lowGear;
-		}
+		SmartDashboard.putNumber("left", joystick[0].getRawAxis(1));
 		return joystick[0].getRawAxis(1);
 	}
 
 	public double getLeftDriveAxis() {
-		if (joystick.length > 1) {
+		if (tankDrive) {
 			return joystickTolerance(getRawLeftDriveAxis(), joystickDeadzone);
 		}
-		speedMultiplier = lowGear ? 0.50 : 1;
-		return speedMultiplier
-				* joystickTolerance(getRawLeftDriveAxis(), xboxDeadzone);
+		return .5 * Math.pow(
+				joystickTolerance(getRawLeftDriveAxis(), xboxDeadzone), 3);
 	}
 
 	public boolean isInLowGear() {
@@ -144,7 +139,7 @@ public class OI {
 	// this does not use joystick tolerance since the speed control
 	// on the joysticks are precise
 	public double getLiftSpeed() {
-		if (joystick.length > 1) {
+		if (tankDrive) {
 			if (joystick[0].getRawAxis(3) != 0) {
 				liftSpeed = joystick[0].getRawAxis(3);
 				if (liftUpButton.get()) {
@@ -154,27 +149,29 @@ public class OI {
 				} else {
 					return 0.0;
 				}
+				}
 			} else {
 				liftSpeed = Math.abs(liftSpeed + 0.05
 						* joystick[0].getRawAxis(6));
-				if (joystick[0].getRawButton(0)) {
+				if (joystick[0].getRawButton(3)) {
 					return liftSpeed;
-				} else if (joystick[0].getRawButton(1)) {
+				} else if (joystick[0].getRawButton(4)) {
 					return -1.0 * liftSpeed;
 				} else {
 					return 0.0;
 				}
 			}
-		}
 		return 0;
-	}
+		}
 
-	public boolean getGrabberOpenButton() {
-		return grabberOpenButton.get();
-	}
-
-	public boolean getGrabberCloseButton() {
-		return grabberCloseButton.get();
+	public int getGrabberButton() {
+		if (grabberOpenButton.get()) {
+			return 1;
+		} else if (grabberCloseButton.get()) {
+			return -1;
+		} else {
+			return 0;
+		}
 	}
 
 }

@@ -21,6 +21,11 @@ public class Lift extends CommandBase {
 		lifter.moveLift(move);
 	}
 
+	public void moveLift(double rotations) {
+		lifter.moveTo(rotations);
+	}
+	
+	
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
 		lift(oi.getLiftSpeed());
