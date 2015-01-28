@@ -50,9 +50,16 @@ public class TankDrive extends CommandBase {
 		driveTrain.setRightPower(speed);
 	}
 
+	public void shift() {
+		driveTrain.shift();
+	}
+
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
 		setSpeeds(oi.getLeftDriveAxis(), oi.getRightDriveAxis());
+		if (oi.getShifterButton()){
+			shift();
+		}
 	}
 
 	// Make this return true when this Command no longer needs to run execute()

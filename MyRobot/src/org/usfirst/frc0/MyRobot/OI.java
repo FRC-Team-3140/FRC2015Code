@@ -171,10 +171,17 @@ public class OI {
 		return 0;
 	}
 
+	public void stopRumbling() {
+		joystick[0].setRumble(Joystick.RumbleType.kLeftRumble,0);
+		joystick[0].setRumble(Joystick.RumbleType.kRightRumble,0);
+	}
+	
 	public GrabberState getGrabberButton() {
 		if (joystick[0].getRawButton(5)) {
+			joystick[0].setRumble(Joystick.RumbleType.kLeftRumble,1);
 			return GrabberState.OPEN;
 		} else if (joystick[0].getRawButton(6)) {
+			joystick[0].setRumble(Joystick.RumbleType.kRightRumble,1);
 			return GrabberState.CLOSE;
 		} else if (joystick[0].getRawButton(7)) {
 			return GrabberState.OFF;
@@ -184,5 +191,8 @@ public class OI {
 			return GrabberState.STOP;
 		}
 	}
-
+	
+	public boolean getShifterButton() {
+		return joystick[0].getRawButton(1);
+	}
 }

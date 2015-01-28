@@ -54,6 +54,10 @@ public class RobotMap {
 		LiveWindow.addActuator("driveTrain", "Right Motor",
 				(Talon) rightDriveMotor);
 
+		shifterSolenoid = new DoubleSolenoid(6, 7);
+		LiveWindow.addActuator("driveTrain", "Gearbox Shifter",
+				(DoubleSolenoid) shifterSolenoid);
+		
 		winchMotor = new Talon(winchMotorPin);
 		LiveWindow.addActuator("chainLifter", "Elevator Motor",
 				(Talon) winchMotor);
@@ -66,7 +70,7 @@ public class RobotMap {
 		robotDrive.setMaxOutput(1.0);
 
 		robotDrive.setInvertedMotor(RobotDrive.MotorType.kRearLeft, true);
-		robotDrive.setInvertedMotor(RobotDrive.MotorType.kRearRight, true);
+		robotDrive.setInvertedMotor(RobotDrive.MotorType.kRearRight, false);
 
 		grabberSolenoid = new DoubleSolenoid(4, 5);
 		LiveWindow.addActuator("grabberArm", "Grabber Solenoid",
