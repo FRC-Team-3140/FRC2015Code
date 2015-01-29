@@ -44,7 +44,6 @@ public class Grabber extends CommandBase {
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
 		OI.GrabberState state = oi.getGrabberButton();
-		oi.stopRumbling();
 		SmartDashboard.putString("state", state.getName());
 		switch (state) {
 		case OPEN: {
