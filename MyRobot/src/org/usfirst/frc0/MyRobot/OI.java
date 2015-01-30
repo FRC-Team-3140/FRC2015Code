@@ -81,7 +81,7 @@ public class OI {
 	private Button compressorOnButton;
 	private Button compressorOffButton;
 
-	private double throttle = 1.0;
+	private double throttle = 0.75;
 	private double liftSpeed = 1.0;
 
 	private static final double xboxDeadzone = 0.03;
@@ -162,7 +162,7 @@ public class OI {
 	}
 
 	public double getRightDriveAxis() {
-		return joystickAdjustment(getRawRightDriveAxis());
+		return -1 * joystickAdjustment(getRawRightDriveAxis());
 	}
 
 	private double getRawLeftDriveAxis() {
@@ -176,7 +176,7 @@ public class OI {
 					joystickDeadzone);
 		}
 		case XBOX_MODE: {
-			return joystickDeadzone(joystick[xboxJoystick].getRawAxis(2),
+			return joystickDeadzone(joystick[xboxJoystick].getRawAxis(1),
 					xboxDeadzone);
 		}
 		}
