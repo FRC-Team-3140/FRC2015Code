@@ -29,8 +29,8 @@ public class OI {
 		private GrabberState(String s) {
 			this.name = s;
 		}
-
-		public String getName() {
+		@Override
+		public String toString() {
 			return "GrabberState." + this.name;
 		}
 	}
