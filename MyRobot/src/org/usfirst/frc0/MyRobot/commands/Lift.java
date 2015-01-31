@@ -1,16 +1,20 @@
 package org.usfirst.frc0.MyRobot.commands;
 
+import org.usfirst.frc0.MyRobot.Robot;
 import org.usfirst.frc0.MyRobot.subsystems.WinchLifter;
+
+import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
  *
  */
-public class Lift extends CommandBase {
+public class Lift extends Command {
 
 	public Lift() {
 		// Use requires() here to declare subsystem dependencies
 		// eg. requires(chassis);
-		requires(lifter);
+		requires(Robot.lifter);
 	}
 
 	// Called just before this Command runs the first time
@@ -18,17 +22,17 @@ public class Lift extends CommandBase {
 	}
 
 	public void lift(double move) {
-		lifter.moveLift(move);
+		Robot.lifter.moveLift(move);
 	}
 
 	public void moveLift(double rotations) {
-		lifter.moveTo(rotations);
+		Robot.lifter.moveTo(rotations);
 	}
 	
 	
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		lift(oi.getLiftSpeed());
+		lift(Robot.oi.getLiftSpeed());
 	}
 
 	// Make this return true when this Command no longer needs to run execute()

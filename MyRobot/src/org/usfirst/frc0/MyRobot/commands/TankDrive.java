@@ -10,28 +10,18 @@
 
 package org.usfirst.frc0.MyRobot.commands;
 
+import org.usfirst.frc0.MyRobot.Robot;
+
+import edu.wpi.first.wpilibj.command.Command;
+
 /**
  *
  */
-public class TankDrive extends CommandBase {
+public class TankDrive extends Command {
 
 	public TankDrive() {
-		requires(driveTrain);
+		requires(Robot.driveTrain);
 	}
-
-	// gets the new joystick and trigger values
-	/*
-	 * public void update(){ leftJoystick = Math.pow(xbox.getRawAxis(1),3);
-	 * rightJoystick = Math.pow(xbox.getRawAxis(5),3); leftTrigger =
-	 * xbox.getRawAxis(2); leftTrigger = Math.pow(leftTrigger,2) *
-	 * Math.signum(leftTrigger); rightTrigger = xbox.getRawAxis(3); rightTrigger
-	 * = Math.pow(rightTrigger,2) * Math.signum(rightTrigger); lowGear =
-	 * xbox.getRawButton(4); SmartDashboard.putNumber("leftAxis",leftJoystick);
-	 * SmartDashboard.putNumber("rightAxis", rightJoystick);
-	 * SmartDashboard.putNumber("leftTrigger",leftTrigger);
-	 * SmartDashboard.putNumber("rightTrigger",rightTrigger);
-	 * SmartDashboard.putBoolean("lowGear", lowGear); }
-	 */
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
@@ -39,25 +29,25 @@ public class TankDrive extends CommandBase {
 	}
 
 	public void setSpeeds(double lSpeed, double rSpeed) {
-		driveTrain.setPower(lSpeed, rSpeed);
+		Robot.driveTrain.setPower(lSpeed, rSpeed);
 	}
 
 	public void setLeftSpeed(double speed) {
-		driveTrain.setLeftPower(speed);
+		Robot.driveTrain.setLeftPower(speed);
 	}
 
 	public void setRightSpeed(double speed) {
-		driveTrain.setRightPower(speed);
+		Robot.driveTrain.setRightPower(speed);
 	}
 
 	public void shift() {
-		driveTrain.shift();
+		Robot.driveTrain.shift();
 	}
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		setSpeeds(oi.getLeftDriveAxis(), oi.getRightDriveAxis());
-		if (oi.getShifterButton()){
+		setSpeeds(Robot.oi.getLeftDriveAxis(), Robot.oi.getRightDriveAxis());
+		if (Robot.oi.getShifterButton()){
 			shift();
 		}
 	}

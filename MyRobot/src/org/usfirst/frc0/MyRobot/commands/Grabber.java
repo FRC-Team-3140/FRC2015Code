@@ -1,6 +1,7 @@
 package org.usfirst.frc0.MyRobot.commands;
 
 import org.usfirst.frc0.MyRobot.OI;
+import org.usfirst.frc0.MyRobot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -8,12 +9,11 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 /**
  *
  */
-public class Grabber extends CommandBase {
-
+public class Grabber extends Command {
 	public Grabber() {
 		// Use requires() here to declare subsystem dependencies
 		// eg. requires(chassis);
-		requires(grabber);
+		requires(Robot.grabber);
 
 	}
 
@@ -22,28 +22,28 @@ public class Grabber extends CommandBase {
 	}
 
 	public void open() {
-		grabber.grabberOpen();
+		Robot.grabber.grabberOpen();
 	}
 
 	public void close() {
-		grabber.grabberClose();
+		Robot.grabber.grabberClose();
 	}
 
 	public void stop() {
-		grabber.grabberStop();
+		Robot.grabber.grabberStop();
 	}
 
 	public void turnOnCompressor() {
-		grabber.startCompressor();
+		Robot.grabber.startCompressor();
 	}
 
 	public void turnOffCompressor() {
-		grabber.stopCompressor();
+		Robot.grabber.stopCompressor();
 	}
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		OI.GrabberState state = oi.getGrabberButton();
+		OI.GrabberState state = Robot.oi.getGrabberButton();
 		SmartDashboard.putString("state", state.toString());
 		switch (state) {
 		case OPEN: {

@@ -14,6 +14,9 @@ import org.usfirst.frc0.MyRobot.commands.AutonomousCommand;
 import org.usfirst.frc0.MyRobot.commands.TankDrive;
 import org.usfirst.frc0.MyRobot.commands.Grabber;
 import org.usfirst.frc0.MyRobot.commands.Lift;
+import org.usfirst.frc0.MyRobot.subsystems.DriveTrain;
+import org.usfirst.frc0.MyRobot.subsystems.GrabberArm;
+import org.usfirst.frc0.MyRobot.subsystems.WinchLifter;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -32,6 +35,10 @@ public class Robot extends IterativeRobot {
 	Command autonomousCommand;
 
 	public static OI oi;
+	
+	public static DriveTrain driveTrain ;
+	public static WinchLifter lifter;
+	public static GrabberArm grabber ;
 
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -45,6 +52,11 @@ public class Robot extends IterativeRobot {
 		// constructed yet. Thus, their requires() statements may grab null
 		// pointers. Bad news. Don't move it.
 		oi = new OI();
+		
+		driveTrain = new DriveTrain();
+		lifter = new WinchLifter();
+		grabber = new GrabberArm();
+		
 
 		// instantiate the command used for the autonomous period
 		autonomousCommand = new AutonomousCommand();
