@@ -10,17 +10,17 @@
 
 package org.usfirst.frc0.MyRobot;
 
-import org.usfirst.frc0.MyRobot.commands.AutonomousCommand;
-import org.usfirst.frc0.MyRobot.commands.TankDrive;
-import org.usfirst.frc0.MyRobot.commands.Grabber;
-import org.usfirst.frc0.MyRobot.commands.Lift;
+import org.usfirst.frc0.MyRobot.OI.JoystickMode;
+import org.usfirst.frc0.MyRobot.commands.*;
 import org.usfirst.frc0.MyRobot.subsystems.DriveTrain;
+import org.usfirst.frc0.MyRobot.subsystems.Electronics;
 import org.usfirst.frc0.MyRobot.subsystems.GrabberArm;
 import org.usfirst.frc0.MyRobot.subsystems.WinchLifter;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 
 /**
@@ -35,10 +35,11 @@ public class Robot extends IterativeRobot {
 	Command autonomousCommand;
 
 	public static OI oi;
-	
-	public static DriveTrain driveTrain ;
+
+	public static DriveTrain driveTrain;
 	public static WinchLifter lifter;
-	public static GrabberArm grabber ;
+	public static GrabberArm grabber;
+	public static Electronics monitor;
 
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -52,15 +53,14 @@ public class Robot extends IterativeRobot {
 		// constructed yet. Thus, their requires() statements may grab null
 		// pointers. Bad news. Don't move it.
 		oi = new OI();
-		
+
 		driveTrain = new DriveTrain();
 		lifter = new WinchLifter();
 		grabber = new GrabberArm();
-		
+		monitor = new Electronics();
 
 		// instantiate the command used for the autonomous period
 		autonomousCommand = new AutonomousCommand();
-
 
 	}
 
@@ -102,7 +102,12 @@ public class Robot extends IterativeRobot {
 	 * This function is called periodically during operator control
 	 */
 	public void teleopPeriodic() {
-		new TankDrive();
+		new EMonitor();
+		if (OI.mode == JoystickMode.XBOX_MODE) {
+			new ArcadeDrive();
+		} else {
+			new TankDrive();
+		}
 		new Lift();
 		new Grabber();
 		Scheduler.getInstance().run();

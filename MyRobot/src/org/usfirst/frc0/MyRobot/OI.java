@@ -25,6 +25,7 @@ public class OI {
 		private GrabberState(String s) {
 			this.name = s;
 		}
+
 		@Override
 		public String toString() {
 			return "GrabberState." + this.name;
@@ -59,11 +60,11 @@ public class OI {
 	// until it is finished as determined by it's isFinished method.
 	// button.whenReleased(new ExampleCommand());
 
-	private enum JoystickMode {
+	public enum JoystickMode {
 		XBOX_MODE, DUAL_MODE, TRUAL_MODE
 	}
 
-	private static JoystickMode mode = JoystickMode.XBOX_MODE;
+	public final static JoystickMode mode = JoystickMode.XBOX_MODE;
 	private final static int leftJoystick = 0;
 	private final static int rightJoystick = 1;
 	private final static int xboxJoystick = 0;
@@ -76,12 +77,11 @@ public class OI {
 	private Button compressorOnButton;
 	private Button compressorOffButton;
 
-	private double throttle = 0.75;
-	private double liftSpeed = 1.0;
+	private double throttle = 0.55;
+	public double liftSpeed = 0.35;
 
 	private static final double xboxDeadzone = 0.03;
 	private static final double joystickDeadzone = 0.02;
-
 
 	public OI() {
 
@@ -144,12 +144,13 @@ public class OI {
 			return 0;
 		}
 		case DUAL_MODE: {
-			return joystickDeadzone(joystick[rightJoystick].getRawAxis(1),
+			return joystickDeadzone(
+					Math.pow(joystick[rightJoystick].getRawAxis(1), 3),
 					joystickDeadzone);
 		}
 		case XBOX_MODE: {
-			return joystickDeadzone(joystick[xboxJoystick].getRawAxis(5),
-					xboxDeadzone);	
+			return joystickDeadzone(joystick[xboxJoystick].getRawAxis(0),
+					xboxDeadzone);
 		}
 		}
 		return Double.NaN;
@@ -170,7 +171,8 @@ public class OI {
 					joystickDeadzone);
 		}
 		case XBOX_MODE: {
-			return joystickDeadzone(joystick[xboxJoystick].getRawAxis(1),
+			return joystickDeadzone(
+					Math.pow(joystick[xboxJoystick].getRawAxis(1), 3),
 					xboxDeadzone);
 		}
 		}

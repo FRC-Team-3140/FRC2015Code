@@ -5,6 +5,7 @@ import org.usfirst.frc0.MyRobot.subsystems.WinchLifter;
 
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
@@ -28,11 +29,16 @@ public class Lift extends Command {
 	public void moveLift(double rotations) {
 		Robot.lifter.moveTo(rotations);
 	}
-	
-	
+
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		lift(Robot.oi.getLiftSpeed());
+		double lifterCurrent = Robot.monitor.getLifterCurrentStatus();
+		SmartDashboard.putNumber("lifterCurrent", lifterCurrent);
+		if ( lifterCurrent > 5){
+			lift(Robot.oi.getLiftSpeed() * 2.0);
+		} else {
+			lift(Robot.oi.getLiftSpeed());
+	}
 	}
 
 	// Make this return true when this Command no longer needs to run execute()

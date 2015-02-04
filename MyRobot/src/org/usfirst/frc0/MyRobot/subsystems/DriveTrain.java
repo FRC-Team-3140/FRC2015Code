@@ -1,8 +1,9 @@
 package org.usfirst.frc0.MyRobot.subsystems;
 
+import org.usfirst.frc0.MyRobot.OI;
 import org.usfirst.frc0.MyRobot.RobotMap;
-
 import org.usfirst.frc0.MyRobot.commands.*;
+
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -12,7 +13,8 @@ public class DriveTrain extends Subsystem {
 	private static SpeedController leftDriveMotor = RobotMap.leftDriveMotor;
 	private static SpeedController rightDriveMotor = RobotMap.rightDriveMotor;
 	private static DoubleSolenoid shifterSolenoid = RobotMap.shifterSolenoid;
-	private boolean lowGear = false;
+	public boolean lowGear = false;
+	public double strainLimit = 0.5;
 
 	public void setLeftPower(double power) {
 		leftDriveMotor.set(power);
@@ -28,26 +30,32 @@ public class DriveTrain extends Subsystem {
 	}
 
 	public void shift() {
-		if(lowGear) {
+		if (lowGear = true) {
 			upshift();
 		} else {
 			downshift();
 		}
 	}
-	
+
 	private void upshift() {
 		shifterSolenoid.set(DoubleSolenoid.Value.kForward);
 		shifterSolenoid.set(DoubleSolenoid.Value.kOff);
+		lowGear = false;
 	}
 
 	private void downshift() {
 		shifterSolenoid.set(DoubleSolenoid.Value.kReverse);
 		shifterSolenoid.set(DoubleSolenoid.Value.kOff);
+		lowGear = true;
 	}
 
 	@Override
 	protected void initDefaultCommand() {
-		setDefaultCommand(new TankDrive());
+		if (OI.mode == OI.JoystickMode.XBOX_MODE) {
+			setDefaultCommand(new ArcadeDrive());
+		} else {
+			setDefaultCommand(new TankDrive());
+		}
 
 	}
 
