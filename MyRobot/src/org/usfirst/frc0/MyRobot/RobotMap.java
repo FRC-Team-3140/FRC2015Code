@@ -11,6 +11,7 @@
 package org.usfirst.frc0.MyRobot;
 
 import edu.wpi.first.wpilibj.Compressor;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.SpeedController;
@@ -27,20 +28,42 @@ public class RobotMap {
 	public static SpeedController leftDriveMotor;
 	public static SpeedController rightDriveMotor;
 	public static SpeedController winchMotor;
+	public static SpeedController binWinchMotor;
+	public static SpeedController binSwingMotor;
+	
+	public static DigitalInput deploySwitch;
+	public static DigitalInput swingLeftSwitch;
+	public static DigitalInput swingRightSwitch;
+	public static DigitalInput detectCanButton;
+	
 	public static RobotDrive robotDrive;
+	
 	public static DoubleSolenoid grabberSolenoid;
 	public static DoubleSolenoid shifterSolenoid;
+	public static DoubleSolenoid binArmSolenoid;
+	
 	public static Compressor compressor;
 
 
 	public static int leftDriveMotorPin = 0;
 	public static int rightDriveMotorPin = 1;
+	
+	public static int deploySwitchPin = 0;
+	public static int swingLeftSwitchPin = 1;
+	public static int swingRightSwitchPin = DigitalInput(2);
+	public static int detectCanButtonPin = DigitalInput(3);
+	
+	public static int binWinchMotorPin = 4;
+	public static int binSwingMotorPin = 5;
+	
 	public static int winchMotorPin = 9;
 	// solenoid pins
 	public static int grabberSolenoidOpenPin = 6;
 	public static int grabberSolenoidClosePin = 7;
 	public static int shifterSolenoidUpPin = 4;
 	public static int shifterSolenoidDownPin = 5;
+	public static int binArmSolenoidExtendPin = 0;
+	public static int binArmSolenoidRetractPin = 1;
 
 	public static void init() {
 		leftDriveMotor = new Talon(leftDriveMotorPin);
@@ -51,10 +74,30 @@ public class RobotMap {
 		LiveWindow.addActuator("driveTrain", "Right Motor",
 				(Talon) rightDriveMotor);
 
+		binWinchMotor = new Talon(binWinchMotorPin);
+		binSwingMotor = new Talon(binSwingMotorPin);
+		
+		deploySwitch = new DigitalInput(0);
+		swingLeftSwitchPin = DigitalInput(1);
+		swingRightSwitchPin = DigitalInput(2);
+		detectCanButtonPin = DigitalInput(3);
+		
+		
+		
 		shifterSolenoid = new DoubleSolenoid(shifterSolenoidUpPin, shifterSolenoidDownPin);
 		LiveWindow.addActuator("driveTrain", "Gearbox Shifter",
 				(DoubleSolenoid) shifterSolenoid);
 		
+		grabberSolenoid = new DoubleSolenoid(grabberSolenoidOpenPin, grabberSolenoidClosePin);
+		LiveWindow.addActuator("grabberArm", "Grabber Solenoid",
+				(DoubleSolenoid) grabberSolenoid);
+		
+		binArmSolenoid = new DoubleSolenoid(binArmSolenoidExtendPin, binArmSolenoidRetractPin);
+
+		compressor = new Compressor();
+		LiveWindow.addActuator("grabberArm", "compressor",
+				(Compressor) compressor);
+
 		winchMotor = new Talon(winchMotorPin);
 		LiveWindow.addActuator("chainLifter", "Elevator Motor",
 				(Talon) winchMotor);
@@ -69,13 +112,10 @@ public class RobotMap {
 		robotDrive.setInvertedMotor(RobotDrive.MotorType.kRearLeft, false);
 		robotDrive.setInvertedMotor(RobotDrive.MotorType.kRearRight, false);
 		
-		grabberSolenoid = new DoubleSolenoid(grabberSolenoidOpenPin, grabberSolenoidClosePin);
-		LiveWindow.addActuator("grabberArm", "Grabber Solenoid",
-				(DoubleSolenoid) grabberSolenoid);
+	}
 
-		compressor = new Compressor();
-		LiveWindow.addActuator("grabberArm", "compressor",
-				(Compressor) compressor);
-
+	private static int DigitalInput(int i) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 }
