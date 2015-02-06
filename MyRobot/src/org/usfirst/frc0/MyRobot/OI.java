@@ -69,7 +69,6 @@ public class OI {
 	private final static int leftJoystick = 0;
 	private final static int rightJoystick = 1;
 	private final static int xboxJoystick = 0;
-	private final static int binArmJoystick = 2;
 	private Joystick joystick[];
 	private Button shifterButton;
 	private Button liftUpButton;
@@ -81,8 +80,6 @@ public class OI {
 
 	private double throttle = 0.55;
 	public double liftSpeed = 0.35;
-	public double binLiftSpeed = 0.5;
-	public double binSwingSpeed = 0.3;
 
 	private static final double xboxDeadzone = 0.03;
 	private static final double joystickDeadzone = 0.02;
@@ -110,9 +107,8 @@ public class OI {
 			break;
 		}
 		case XBOX_MODE: {
-			this.joystick = new Joystick[2];
+			this.joystick = new Joystick[1];
 			this.joystick[xboxJoystick] = new Joystick(0);
-			this.joystick[binArmJoystick] = new Joystick(1); 
 			this.shifterButton = new JoystickButton(joystick[0], 1);
 			this.liftUpButton = new JoystickButton(joystick[0], 4);
 			this.liftDownButton = new JoystickButton(joystick[0], 3);
@@ -125,8 +121,6 @@ public class OI {
 		}
 
 	}
-	
-	
 
 	private double joystickDeadzone(double rawJoystickValue,
 			double joystickDeadzone) {
