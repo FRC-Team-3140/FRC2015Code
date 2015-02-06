@@ -1,5 +1,11 @@
 <xml version="1.0">
 <dashboard>
+	<widget field="aZAxis" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="193"/>
+	</widget>
+	<widget field="currentStatus" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="172"/>
+	</widget>
 	<widget field="lifterCurrent" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
 		<location x="6" y="90"/>
 	</widget>
@@ -30,6 +36,4 @@
 </dashboard>
 <live-window>
 </live-window>
-	<hidden field="aZAxis"/>
-	<hidden field="currentStatus"/>
 </xml>

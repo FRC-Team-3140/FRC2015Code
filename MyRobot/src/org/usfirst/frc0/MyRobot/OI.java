@@ -79,7 +79,7 @@ public class OI {
 	private Button compressorOffButton;
 
 	private double throttle = 0.55;
-	public double liftSpeed = 0.35;
+	public double liftSpeed = 0.75;
 
 	private static final double xboxDeadzone = 0.03;
 	private static final double joystickDeadzone = 0.02;
@@ -206,9 +206,9 @@ public class OI {
 		}
 		case XBOX_MODE: {
 			liftSpeed = Math.abs(liftSpeed + 0.05 * joystick[0].getRawAxis(3));
-			if (joystick[0].getRawButton(3)) {
+			if (liftUpButton.get()) {
 				return liftSpeed;
-			} else if (joystick[0].getRawButton(4)) {
+			} else if (liftDownButton.get()) {
 				return -1.0 * liftSpeed;
 			} else {
 				return 0.0;

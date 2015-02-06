@@ -34,11 +34,7 @@ public class Lift extends Command {
 	protected void execute() {
 		double lifterCurrent = Robot.monitor.getLifterCurrentStatus();
 		SmartDashboard.putNumber("lifterCurrent", lifterCurrent);
-		if ( lifterCurrent > 5){
-			lift(Robot.oi.getLiftSpeed() * 2.0);
-		} else {
-			lift(Robot.oi.getLiftSpeed());
-	}
+		lift(Robot.oi.getLiftSpeed());
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
