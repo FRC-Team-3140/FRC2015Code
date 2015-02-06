@@ -18,6 +18,7 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class OI {
+	
 	public enum GrabberState {
 		OPEN("open"), CLOSE("close"), OFF("off"), ON("on"), STOP("stop");
 		String name;
