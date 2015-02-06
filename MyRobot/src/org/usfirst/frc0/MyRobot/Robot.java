@@ -12,6 +12,7 @@ package org.usfirst.frc0.MyRobot;
 
 import org.usfirst.frc0.MyRobot.OI.JoystickMode;
 import org.usfirst.frc0.MyRobot.commands.*;
+import org.usfirst.frc0.MyRobot.subsystems.BinGrabberArm;
 import org.usfirst.frc0.MyRobot.subsystems.DriveTrain;
 import org.usfirst.frc0.MyRobot.subsystems.Electronics;
 import org.usfirst.frc0.MyRobot.subsystems.GrabberArm;
@@ -41,6 +42,7 @@ public class Robot extends IterativeRobot {
 	public static GrabberArm grabber;
 	public static Electronics monitor;
 
+	public static BinGrabberArm arm;
 	/**
 	 * This function is run when the robot is first started up and should be
 	 * used for any initialization code.

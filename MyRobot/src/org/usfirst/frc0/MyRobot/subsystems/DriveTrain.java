@@ -15,7 +15,7 @@ public class DriveTrain extends Subsystem {
 	private static DoubleSolenoid shifterSolenoid = RobotMap.shifterSolenoid;
 	public boolean lowGear = false;
 	public double strainLimit = 0.5;
-
+	//just for you Zaky, xoxo.
 	public void setLeftPower(double power) {
 		leftDriveMotor.set(power);
 	}
