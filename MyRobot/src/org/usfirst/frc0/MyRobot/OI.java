@@ -80,6 +80,10 @@ public class OI {
 
 	private double throttle = 0.55;
 	public double liftSpeed = 0.35;
+	private double piecewiseThreshA = 0.02;
+	private double piecewiseMultA = 0.35;
+	private double piecewiseThreshB = 0.75;
+	private double piecewiseMultB = 0.55;
 
 	private static final double xboxDeadzone = 0.03;
 	private static final double joystickDeadzone = 0.02;
@@ -133,6 +137,12 @@ public class OI {
 
 	private double joystickAdjustment(double rawJoystickValue) {
 		return throttle * rawJoystickValue;
+//		if (rawJoystickValue < piecewiseThreshA) {
+//			return piecewiseMultA * rawJoystickValue;
+//		} else if (rawJoystickValue > piecewiseThreshB) {
+//			return piecewiseMultB * rawJoystickValue;
+//		}
+//		return Math.signum(rawJoystickValue) * rawJoystickValue * rawJoystickValue;
 	}
 
 	// returns the value of the y axis on the right joystick and sets the
