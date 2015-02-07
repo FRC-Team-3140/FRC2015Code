@@ -137,13 +137,14 @@ public class OI {
 	}
 
 	private double joystickAdjustment(double rawJoystickValue) {
-		return throttle * rawJoystickValue;
-//		if (Math.abs(rawJoystickValue) < piecewiseThreshA) {
-//			return piecewiseMultA * rawJoystickValue;
-//		} else if (Math.abs(rawJoystickValue) > piecewiseThreshB) {
-//			return piecewiseMultB * rawJoystickValue;
-//		}
-//		return Math.signum(rawJoystickValue) * rawJoystickValue * rawJoystickValue;
+		//return throttle * rawJoystickValue;														// Original
+//		if (Math.abs(rawJoystickValue) < piecewiseThreshA) {										// Piecewise
+//			return piecewiseMultA * rawJoystickValue;												// Piecewise
+//		} else if (Math.abs(rawJoystickValue) > piecewiseThreshB) {									// Piecewise
+//			return piecewiseMultB * rawJoystickValue;												// Piecewise											
+//		}																							// Piecewise
+//		return Math.signum(rawJoystickValue) * Math.abs(Math.pow(rawJoystickValue,2)) * throttle;	// Quadratic
+		return Math.signum(rawJoystickValue) * Math.abs(Math.pow(rawJoystickValue,3)) * throttle;	// Cubic
 	}
 
 	// returns the value of the y axis on the right joystick and sets the
