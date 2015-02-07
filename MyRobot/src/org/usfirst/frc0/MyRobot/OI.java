@@ -144,7 +144,8 @@ public class OI {
 //			return piecewiseMultB * rawJoystickValue;												// Piecewise											
 //		}																							// Piecewise
 //		return Math.signum(rawJoystickValue) * Math.abs(Math.pow(rawJoystickValue,2)) * throttle;	// Quadratic
-		return Math.signum(rawJoystickValue) * Math.abs(Math.pow(rawJoystickValue,3)) * throttle;	// Cubic
+		//Math.signum(rawJoystickValue) * Math.abs(Math.pow(rawJoystickValue,3)) * throttle;	// Cubic
+		return 0.5 * Math.copySign(rawJoystickValue, Math.pow(rawJoystickValue, 3));
 	}
 
 	// returns the value of the y axis on the right joystick and sets the
