@@ -13,25 +13,28 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class WinchLifter extends Subsystem implements ILifter {
 
-	private SpeedController winchMotor = RobotMap.winchMotor;
+    private SpeedController winchMotor = RobotMap.winchMotor;
 
-	public void moveLift(double power) {
-		winchMotor.set(power);
+    public void moveLift(double power) {
+	winchMotor.set(power);
+    }
+
+    public void stop() {
+	winchMotor.set(0);
+    }
+
+    public void moveTo(double height) {
+	//the position is the distance from the current location
+	//given in stack levels
+	local secondsElapsed
+	while(height) {
+	    winchMotor.set(Math.signum(rotations));
 	}
+    }
 
-	public void stop() {
-		winchMotor.set(0);
-	}
-
-	public void moveTo(double rotations) {
-		 //the position is the distance from the bottom
-		 //given out of the total range
-
-	}
-
-	public void initDefaultCommand() {
-		setDefaultCommand(new Lift());
-		 //Set the default command for a subsystem here.
-		 //setDefaultCommand(new MySpecialCommand());
-	}
+    public void initDefaultCommand() {
+	setDefaultCommand(new Lift());
+	//Set the default command for a subsystem here.
+	//setDefaultCommand(new MySpecialCommand());
+    }
 }
