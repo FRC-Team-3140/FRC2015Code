@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 public class WinchLifter extends Subsystem implements ILifter {
 
     private SpeedController winchMotor = RobotMap.winchMotor;
+    private double speed =  7.5; //inches per second at max speed
 
     public void moveLift(double power) {
 	winchMotor.set(power);
@@ -26,10 +27,6 @@ public class WinchLifter extends Subsystem implements ILifter {
     public void moveTo(double height) {
 	//the position is the distance from the current location
 	//given in stack levels
-	local secondsElapsed
-	while(height) {
-	    winchMotor.set(Math.signum(rotations));
-	}
     }
 
     public void initDefaultCommand() {
