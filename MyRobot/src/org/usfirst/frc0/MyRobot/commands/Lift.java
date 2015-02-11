@@ -39,12 +39,11 @@ public class Lift extends Command {
 	if (OI.lifterMode == OI.LiftMode.MANUAL) {
 	    lift(Robot.oi.getLiftSpeed());
 	} else if (OI.lifterMode == OI.LiftMode.AUTOMATIC) {
+	    moveLift(Robot.getLiftSpeed());
 	    if (Robot.oi.getLiftSpeed() > 0 && location < 5){
 		location++;
-		moveLift(1);
 	    } else if(Robot.oi.getLiftSpeed() < 0 && location > 0){
 		location--;
-		moveLift(-1);
 	    }
 	}
     }

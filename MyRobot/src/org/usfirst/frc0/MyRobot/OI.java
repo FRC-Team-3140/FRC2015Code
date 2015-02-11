@@ -61,12 +61,12 @@ public class OI {
 	}
     }
     
-    public enum LiftMode {
-	MANUAL, AUTOMATIC
+    public enum LifterMode {
+	MANUAL, AUTOMATIC;
     }
     
     public enum JoystickMode {
-	XBOX_MODE, DUAL_MODE, TRUAL_MODE
+	XBOX_MODE, DUAL_MODE, TRUAL_MODE;
     }
 
     public final static JoystickMode mode = JoystickMode.XBOX_MODE;
@@ -193,6 +193,7 @@ public class OI {
     // this does not use joystick tolerance since the speed control
     // on the joysticks are precise
     public double getLiftSpeed() {
+	setShifterMode();
 	switch (mode) {
 	case TRUAL_MODE: {
 	    // to do, never
@@ -238,7 +239,17 @@ public class OI {
 	}
     }
 
-    public boolean getShifterButton() {
-	return shifterButton.get();
+    public void setShifterMode() {
+	if (lifterButton.get()) {
+	    if(this.lifterMode == LifterMode.AUTOMATIC) {
+		this.lifterMode = LifterMode.MANUAL;
+	    } else {
+		this.lifterMode = LifterMode.AUTOMATIC;
+	    }
+	}
+
+	public boolean getShifterButton() {
+	    return shifterButton.get();
+	}
     }
 }
