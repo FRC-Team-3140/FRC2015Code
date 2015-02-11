@@ -1,5 +1,7 @@
 package org.usfirst.frc0.MyRobot.commands;
 
+import org.usfirst.frc0.MyRobot.OI;
+import org.usfirst.frc0.MyRobot.OI.lifterMode;
 import org.usfirst.frc0.MyRobot.Robot;
 import org.usfirst.frc0.MyRobot.subsystems.WinchLifter;
 
@@ -11,7 +13,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  *
  */
 public class Lift extends Command {
-
 	public Lift() {
 		// Use requires() here to declare subsystem dependencies
 		// eg. requires(chassis);
@@ -28,13 +29,18 @@ public class Lift extends Command {
 
 	public void moveLift(double rotations) {
 		Robot.lifter.moveTo(rotations);
+	
 	}
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
 		double lifterCurrent = Robot.monitor.getLifterCurrentStatus();
 		SmartDashboard.putNumber("lifterCurrent", lifterCurrent);
-		lift(Robot.oi.getLiftSpeed());
+		if(OI.liftmode == lifterMode.MANUAL_MODE) {
+			lift(Robot.oi.getLiftSpeed());
+		}else if(OI.liftmode == lifterMode.AUTOMATIC_MODE) {
+			Robot.lifter.moveTo(1);
+		}
 	}
 
 	// Make this return true when this Command no longer needs to run execute()

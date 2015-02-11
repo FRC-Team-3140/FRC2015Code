@@ -11,7 +11,9 @@
 package org.usfirst.frc0.MyRobot;
 
 import edu.wpi.first.wpilibj.Compressor;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.Talon;
@@ -24,24 +26,41 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
  * floating around.
  */
 public class RobotMap {
+	// Instantiating Speed Controllers
 	public static SpeedController leftDriveMotor;
 	public static SpeedController rightDriveMotor;
 	public static SpeedController winchMotor;
+	public static SpeedController binWinchMotor;
+	// Instantiating RobotDrive
 	public static RobotDrive robotDrive;
+	//Instantiating Solenoids
 	public static DoubleSolenoid grabberSolenoid;
 	public static DoubleSolenoid shifterSolenoid;
+	// Instantiating Compressor
 	public static Compressor compressor;
+	//Instantiating the limit switches
+	public static DigitalInput topLimitSwitch;
+	public static DigitalInput bottomLimitSwitch;
+	public static DigitalInput leftGrabberSwitch;
+	public static DigitalInput rightGrabberSwitch;
+	//Instantiating the encoders
+	public static Encoder leftDriveEncoder;
+	public static Encoder rightDriveEncoder;
+	public static Encoder winchEncoder;
+	
 
-
+	//Motor pins
 	public static int leftDriveMotorPin = 0;
 	public static int rightDriveMotorPin = 1;
 	public static int winchMotorPin = 9;
-	// solenoid pins
+	public static int binWinchMotorPin = 8;
+	// Solenoid pins
 	public static int grabberSolenoidOpenPin = 6;
 	public static int grabberSolenoidClosePin = 7;
 	public static int shifterSolenoidUpPin = 4;
 	public static int shifterSolenoidDownPin = 5;
-
+	
+	//Linking the instantiations to the pins
 	public static void init() {
 		leftDriveMotor = new Talon(leftDriveMotorPin);
 		LiveWindow.addActuator("driveTrain", "Left Motor",
@@ -58,6 +77,8 @@ public class RobotMap {
 		winchMotor = new Talon(winchMotorPin);
 		LiveWindow.addActuator("chainLifter", "Elevator Motor",
 				(Talon) winchMotor);
+		
+		binWinchMotor = new Talon(binWinchMotorPin);
 
 		robotDrive = new RobotDrive(leftDriveMotor, rightDriveMotor);
 

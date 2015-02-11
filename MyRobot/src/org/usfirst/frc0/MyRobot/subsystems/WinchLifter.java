@@ -1,5 +1,5 @@
 package org.usfirst.frc0.MyRobot.subsystems;
-
+import org.usfirst.frc0.MyRobot.*;
 import org.usfirst.frc0.MyRobot.RobotMap;
 import org.usfirst.frc0.MyRobot.commands.Lift;
 
@@ -14,7 +14,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 public class WinchLifter extends Subsystem implements ILifter {
 
 	private SpeedController winchMotor = RobotMap.winchMotor;
-
+	
 	public void moveLift(double power) {
 		winchMotor.set(power);
 	}
@@ -26,7 +26,13 @@ public class WinchLifter extends Subsystem implements ILifter {
 	public void moveTo(double rotations) {
 		 //the position is the distance from the bottom
 		 //given out of the total range
-
+		long period = 1000L;
+		long cTime;
+		long iTime = System.currentTimeMillis();
+		do{
+			this.moveLift(Robot.oi.liftSpeed);
+		cTime = System.currentTimeMillis();
+		}while(cTime-iTime<=period);
 	}
 
 	public void initDefaultCommand() {

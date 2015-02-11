@@ -19,6 +19,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class OI {
 	
+	
 	public enum GrabberState {
 		OPEN("open"), CLOSE("close"), OFF("off"), ON("on"), STOP("stop");
 		String name;
@@ -63,13 +64,20 @@ public class OI {
 
 	public enum JoystickMode {
 		XBOX_MODE, DUAL_MODE, TRUAL_MODE
+	} 
+	
+	public enum lifterMode {
+		MANUAL_MODE, AUTOMATIC_MODE
 	}
 
 	public final static JoystickMode mode = JoystickMode.XBOX_MODE;
+	public static lifterMode liftmode = lifterMode.MANUAL_MODE;
 	private final static int leftJoystick = 0;
 	private final static int rightJoystick = 1;
 	private final static int xboxJoystick = 0;
+	private final static int attackJoystick = 0;
 	private Joystick joystick[];
+	private Button switchButton;
 	private Button shifterButton;
 	private Button liftUpButton;
 	private Button liftDownButton;
@@ -114,7 +122,8 @@ public class OI {
 		case XBOX_MODE: {
 			this.joystick = new Joystick[1];
 			this.joystick[xboxJoystick] = new Joystick(0);
-			this.shifterButton = new JoystickButton(joystick[0], 1);
+			this.switchButton = new JoystickButton(joystick[0], 1);
+			this.shifterButton = new JoystickButton(joystick[0], 2);
 			this.liftUpButton = new JoystickButton(joystick[0], 4);
 			this.liftDownButton = new JoystickButton(joystick[0], 3);
 			this.grabberOpenButton = new JoystickButton(joystick[0], 5);
@@ -166,6 +175,7 @@ public class OI {
 			return joystickDeadzone(joystick[xboxJoystick].getRawAxis(0),
 					xboxDeadzone);
 		}
+
 		}
 		return Double.NaN;
 	}
@@ -244,7 +254,15 @@ public class OI {
 			return GrabberState.STOP;
 		}
 	}
-
+	public boolean switchLifterMode() {
+		if(switchButton.get() && liftmode == lifterMode.MANUAL_MODE) {
+			liftmode = lifterMode.AUTOMATIC_MODE;
+		}else if(switchButton.get() && liftmode == lifterMode.AUTOMATIC_MODE) {
+			liftmode = lifterMode.MANUAL_MODE;
+		} 
+		return false;
+	}
+	
 	public boolean getShifterButton() {
 		return shifterButton.get();
 	}

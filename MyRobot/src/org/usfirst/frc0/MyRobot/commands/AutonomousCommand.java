@@ -17,11 +17,15 @@ import org.usfirst.frc0.MyRobot.Robot;
  *
  */
 public class AutonomousCommand extends Command {
-
+	public long mTime = 1000;
+	public long iTime = System.currentTimeMillis();
 	public AutonomousCommand() {
 		// Use requires() here to declare subsystem dependencies
 		// eg. requires(chassis);
-
+		requires(Robot.driveTrain);
+		requires(Robot.grabber);
+		requires(Robot.lifter);
+		
 
 	}
 
@@ -31,6 +35,11 @@ public class AutonomousCommand extends Command {
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
+		long cTime = System.currentTimeMillis();
+		if(cTime-iTime<=1000){
+		Robot.driveTrain.setLeftPower(.1);
+		Robot.driveTrain.setRightPower(.1);
+		}
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
