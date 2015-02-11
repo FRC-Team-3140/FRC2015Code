@@ -115,7 +115,8 @@ public class OI {
 	case XBOX_MODE: {
 	    this.joystick = new Joystick[1];
 	    this.joystick[xboxJoystick] = new Joystick(0);
-	    this.shifterButton = new JoystickButton(joystick[0], 1);
+	    this.lifterButton = new JoystickButton(joystick[0], 1);
+	    this.shifterButton = new JoystickButton(joystick[0], 2);
 	    this.liftUpButton = new JoystickButton(joystick[0], 4);
 	    this.liftDownButton = new JoystickButton(joystick[0], 3);
 	    this.grabberOpenButton = new JoystickButton(joystick[0], 5);
