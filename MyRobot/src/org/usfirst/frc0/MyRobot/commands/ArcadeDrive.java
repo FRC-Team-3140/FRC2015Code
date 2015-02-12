@@ -5,8 +5,13 @@ import org.usfirst.frc0.MyRobot.subsystems.Electronics;
 
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.PIDController;
+import edu.wpi.first.wpilibj.PIDOutput;
+import edu.wpi.first.wpilibj.PIDSource;
 
 public class ArcadeDrive extends Command {
+    private PIDController pid;
+
 
 	public ArcadeDrive() {
 		requires(Robot.driveTrain);
@@ -14,8 +19,14 @@ public class ArcadeDrive extends Command {
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
-
+	
+	    	// Get everything in a safe starting state.
+	        Robot.drivetrain.reset();
+	    	pid.reset();
+	        pid.enable();
 	}
+	
+	
 
 	public void setSpeeds(double speed, double angle) {
 		Robot.driveTrain.setPower(speed + angle, -1 * ( speed - angle));
@@ -35,6 +46,7 @@ public class ArcadeDrive extends Command {
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
+		
 		SmartDashboard.putBoolean("currentStatus",
 				Robot.monitor.getMotorCurrentStatus());
 		if (Robot.monitor.getMotorCurrentStatus() != true) {
