@@ -37,7 +37,7 @@ public class Electronics extends Subsystem implements IElectronics {
 	}
 	
 	
-	@Override
+//	@Override
 	public double[] getAcceleration() {
 		double[] vVals;
 		double xVal = accel.getX();
