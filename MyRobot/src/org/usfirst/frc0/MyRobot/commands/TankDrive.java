@@ -48,20 +48,17 @@ public class TankDrive extends Command {
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		SmartDashboard.putBoolean("currentStatus", Robot.monitor.getMotorCurrentStatus());
+		SmartDashboard.putBoolean("currentStatus",
+				Robot.monitor.getMotorCurrentStatus());
 		// if (Robot.monitor.getMotorVoltageStatus() != true) {
-			setSpeeds(Robot.oi.getLeftDriveAxis(), Robot.oi.getRightDriveAxis());
-		/*} else if (Robot.driveTrain.lowGear) {
-			setSpeeds(
-					Robot.driveTrain.strainLimit
-							* (Robot.oi.getLeftDriveAxis()),
-					Robot.driveTrain.strainLimit * Robot.oi.getRightDriveAxis());
-		} else {
-			Robot.driveTrain.shift();
-		}
-		if (Robot.oi.getShifterButton()) {
-			shift();
-		}*/
+		setSpeeds(Robot.oi.getLeftDriveAxis(), Robot.oi.getRightDriveAxis());
+		/*
+		 * } else if (Robot.driveTrain.lowGear) { setSpeeds(
+		 * Robot.driveTrain.strainLimit (Robot.oi.getLeftDriveAxis()),
+		 * Robot.driveTrain.strainLimit * Robot.oi.getRightDriveAxis()); } else
+		 * { Robot.driveTrain.shift(); } if (Robot.oi.getShifterButton()) {
+		 * shift(); }
+		 */
 	}
 
 	// Make this return true when this Command no longer needs to run execute()

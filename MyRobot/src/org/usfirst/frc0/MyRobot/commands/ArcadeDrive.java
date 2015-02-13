@@ -1,6 +1,7 @@
 package org.usfirst.frc0.MyRobot.commands;
 
 import org.usfirst.frc0.MyRobot.Robot;
+import org.usfirst.frc0.MyRobot.RobotMap;
 import org.usfirst.frc0.MyRobot.subsystems.Electronics;
 
 import edu.wpi.first.wpilibj.command.Command;
@@ -10,8 +11,18 @@ import edu.wpi.first.wpilibj.PIDOutput;
 import edu.wpi.first.wpilibj.PIDSource;
 
 public class ArcadeDrive extends Command {
-    private PIDController pid;
+	private final double kP = 1.0;
+	private final double kI = 0.0;
+	private final double kD = 0.0;
 
+	private enum ControllerMode {
+		STANDARD, PID
+	}
+
+	private final static ControllerMode mode = ControllerMode.PID;
+
+	private static PIDController leftPID;
+	private static PIDController rightPID;
 
 	public ArcadeDrive() {
 		requires(Robot.driveTrain);
@@ -19,17 +30,36 @@ public class ArcadeDrive extends Command {
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
-	
-	    	// Get everything in a safe starting state.
-	        Robot.drivetrain.reset();
-	    	pid.reset();
-	        pid.enable();
+
+		// Initializing PIDControllers
+
+		leftPID = new PIDController(kP, kI, kD, Robot.driveTrain.leftEncoder,
+				RobotMap.leftDriveMotor);
+		leftPID = new PIDController(kP, kI, kD, Robot.driveTrain.rightEncoder,
+				RobotMap.rightDriveMotor);
+
+		/*
+		 * leftPID.setPercentTolerance(25); rightPID.setPercentTolerance(25);
+		 */
+
+		/*
+		 * leftPID.setContinuous(); rightPID.setContinuous();
+		 */
+
+		// Get everything in a safe starting state.
+
+		Robot.driveTrain.reset();
+
+		leftPID.enable();
+		rightPID.enable();
+
+		leftPID.setInputRange(-1.0, 1.0);
+		rightPID.setInputRange(-1.0, 1.0);
+
 	}
-	
-	
 
 	public void setSpeeds(double speed, double angle) {
-		Robot.driveTrain.setPower(speed + angle, -1 * ( speed - angle));
+		Robot.driveTrain.setPower(speed + angle, -1 * (speed - angle));
 	}
 
 	public void setLeftSpeed(double speed) {
@@ -44,22 +74,37 @@ public class ArcadeDrive extends Command {
 		Robot.driveTrain.shift();
 	}
 
+	public void encoderDrive() {
+		leftPID.setSetpoint(Robot.oi.getLeftDriveAxis());
+		rightPID.setSetpoint(Robot.oi.getRightDriveAxis());
+	}
+
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		
-		SmartDashboard.putBoolean("currentStatus",
-				Robot.monitor.getMotorCurrentStatus());
-		if (Robot.monitor.getMotorCurrentStatus() != true) {
-			setSpeeds(Robot.oi.getLeftDriveAxis(), Robot.oi.getRightDriveAxis());
-		} else if (Robot.driveTrain.lowGear) {
-			setSpeeds(
-					Robot.driveTrain.strainLimit * Robot.oi.getLeftDriveAxis(),
-					Robot.driveTrain.strainLimit * Robot.oi.getRightDriveAxis());
-		} else {
-			Robot.driveTrain.shift();
+		Robot.driveTrain.log();
+		switch (mode) {
+		case PID: {
+			encoderDrive();
 		}
-		if (Robot.oi.getShifterButton()) {
-			shift();
+		case STANDARD: {
+			SmartDashboard.putBoolean("currentStatus",
+					Robot.monitor.getMotorCurrentStatus());
+			if (Robot.monitor.getMotorCurrentStatus() != true) {
+				setSpeeds(Robot.oi.getLeftDriveAxis(),
+						Robot.oi.getRightDriveAxis());
+			} else if (Robot.driveTrain.lowGear) {
+				setSpeeds(
+						Robot.driveTrain.strainLimit
+								* Robot.oi.getLeftDriveAxis(),
+						Robot.driveTrain.strainLimit
+								* Robot.oi.getRightDriveAxis());
+			} else {
+				Robot.driveTrain.shift();
+			}
+			if (Robot.oi.getShifterButton()) {
+				shift();
+			}
+		}
 		}
 
 	}

@@ -18,8 +18,7 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class OI {
-	
-	
+
 	public enum GrabberState {
 		OPEN("open"), CLOSE("close"), OFF("off"), ON("on"), STOP("stop");
 		String name;
@@ -64,8 +63,8 @@ public class OI {
 
 	public enum JoystickMode {
 		XBOX_MODE, DUAL_MODE, TRUAL_MODE
-	} 
-	
+	}
+
 	public enum lifterMode {
 		MANUAL_MODE, AUTOMATIC_MODE
 	}
@@ -88,11 +87,11 @@ public class OI {
 
 	private double throttle = 0.55;
 	public double liftSpeed = 0.75;
-	
-	//private double piecewiseThreshA = 0.02;
-	//private double piecewiseMultA = 0.35;
-	//private double piecewiseThreshB = 0.75;
-	//private double piecewiseMultB = 0.55;
+
+	// private double piecewiseThreshA = 0.02;
+	// private double piecewiseMultA = 0.35;
+	// private double piecewiseThreshB = 0.75;
+	// private double piecewiseMultB = 0.55;
 
 	private static final double xboxDeadzone = 0.03;
 	private static final double joystickDeadzone = 0.02;
@@ -146,14 +145,17 @@ public class OI {
 	}
 
 	private double joystickAdjustment(double rawJoystickValue) {
-		//return throttle * rawJoystickValue;														// Original
-//		if (Math.abs(rawJoystickValue) < piecewiseThreshA) {										// Piecewise
-//			return piecewiseMultA * rawJoystickValue;												// Piecewise
-//		} else if (Math.abs(rawJoystickValue) > piecewiseThreshB) {									// Piecewise
-//			return piecewiseMultB * rawJoystickValue;												// Piecewise											
-//		}																							// Piecewise
-//		return Math.signum(rawJoystickValue) * Math.abs(Math.pow(rawJoystickValue,2)) * throttle;	// Quadratic
-		return Math.signum(rawJoystickValue) * Math.abs(Math.pow(rawJoystickValue,3)) * throttle;	// Cubic
+		// return throttle * rawJoystickValue; // Original
+		// if (Math.abs(rawJoystickValue) < piecewiseThreshA) { // Piecewise
+		// return piecewiseMultA * rawJoystickValue; // Piecewise
+		// } else if (Math.abs(rawJoystickValue) > piecewiseThreshB) { //
+		// Piecewise
+		// return piecewiseMultB * rawJoystickValue; // Piecewise
+		// } // Piecewise
+		// return Math.signum(rawJoystickValue) *
+		// Math.abs(Math.pow(rawJoystickValue,2)) * throttle; // Quadratic
+		return Math.signum(rawJoystickValue)
+				* Math.abs(Math.pow(rawJoystickValue, 3)) * throttle; // Cubic
 	}
 
 	// returns the value of the y axis on the right joystick and sets the
@@ -253,15 +255,16 @@ public class OI {
 			return GrabberState.STOP;
 		}
 	}
+
 	public boolean switchLifterMode() {
-		if(switchButton.get() && liftmode == lifterMode.MANUAL_MODE) {
+		if (switchButton.get() && liftmode == lifterMode.MANUAL_MODE) {
 			liftmode = lifterMode.AUTOMATIC_MODE;
-		}else if(switchButton.get() && liftmode == lifterMode.AUTOMATIC_MODE) {
+		} else if (switchButton.get() && liftmode == lifterMode.AUTOMATIC_MODE) {
 			liftmode = lifterMode.MANUAL_MODE;
-		} 
+		}
 		return false;
 	}
-	
+
 	public boolean getShifterButton() {
 		return shifterButton.get();
 	}

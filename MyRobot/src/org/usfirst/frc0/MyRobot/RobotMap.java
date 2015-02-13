@@ -33,23 +33,22 @@ public class RobotMap {
 	public static SpeedController binWinchMotor;
 	// Instantiating RobotDrive
 	public static RobotDrive robotDrive;
-	//Instantiating Solenoids
+	// Instantiating Solenoids
 	public static DoubleSolenoid grabberSolenoid;
 	public static DoubleSolenoid shifterSolenoid;
 	// Instantiating Compressor
 	public static Compressor compressor;
-	//Instantiating the limit switches
+	// Instantiating the limit switches
 	public static DigitalInput topLimitSwitch;
 	public static DigitalInput bottomLimitSwitch;
 	public static DigitalInput leftGrabberSwitch;
 	public static DigitalInput rightGrabberSwitch;
-	//Instantiating the encoders
+	// Instantiating the encoders
 	public static Encoder leftDriveEncoder;
 	public static Encoder rightDriveEncoder;
 	public static Encoder winchEncoder;
-	
 
-	//Motor pins
+	// Motor pins
 	public static int leftDriveMotorPin = 0;
 	public static int rightDriveMotorPin = 1;
 	public static int winchMotorPin = 9;
@@ -59,8 +58,8 @@ public class RobotMap {
 	public static int grabberSolenoidClosePin = 7;
 	public static int shifterSolenoidUpPin = 4;
 	public static int shifterSolenoidDownPin = 5;
-	
-	//Linking the instantiations to the pins
+
+	// Linking the instantiations to the pins
 	public static void init() {
 		leftDriveMotor = new Talon(leftDriveMotorPin);
 		LiveWindow.addActuator("driveTrain", "Left Motor",
@@ -70,15 +69,18 @@ public class RobotMap {
 		LiveWindow.addActuator("driveTrain", "Right Motor",
 				(Talon) rightDriveMotor);
 
-		shifterSolenoid = new DoubleSolenoid(shifterSolenoidUpPin, shifterSolenoidDownPin);
+		shifterSolenoid = new DoubleSolenoid(shifterSolenoidUpPin,
+				shifterSolenoidDownPin);
 		LiveWindow.addActuator("driveTrain", "Gearbox Shifter",
 				(DoubleSolenoid) shifterSolenoid);
-		
+
 		winchMotor = new Talon(winchMotorPin);
 		LiveWindow.addActuator("chainLifter", "Elevator Motor",
 				(Talon) winchMotor);
-		
+
 		binWinchMotor = new Talon(binWinchMotorPin);
+		leftDriveEncoder = new Encoder(2, 3);
+		rightDriveEncoder = new Encoder(0, 1);
 
 		robotDrive = new RobotDrive(leftDriveMotor, rightDriveMotor);
 
@@ -89,8 +91,9 @@ public class RobotMap {
 
 		robotDrive.setInvertedMotor(RobotDrive.MotorType.kRearLeft, false);
 		robotDrive.setInvertedMotor(RobotDrive.MotorType.kRearRight, false);
-		
-		grabberSolenoid = new DoubleSolenoid(grabberSolenoidOpenPin, grabberSolenoidClosePin);
+
+		grabberSolenoid = new DoubleSolenoid(grabberSolenoidOpenPin,
+				grabberSolenoidClosePin);
 		LiveWindow.addActuator("grabberArm", "Grabber Solenoid",
 				(DoubleSolenoid) grabberSolenoid);
 
