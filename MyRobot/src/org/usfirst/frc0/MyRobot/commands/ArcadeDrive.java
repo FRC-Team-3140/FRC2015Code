@@ -50,8 +50,8 @@ public class ArcadeDrive extends Command {
 
 		Robot.driveTrain.reset();
 
-		leftPID.enable();
-		rightPID.enable();
+		//leftPID.enable();
+		//rightPID.enable();
 
 		leftPID.setInputRange(-1.0, 1.0);
 		rightPID.setInputRange(-1.0, 1.0);
