@@ -78,11 +78,11 @@ public class DriveTrain extends Subsystem {
 
 	@Override
 	protected void initDefaultCommand() {
-		leftEncoder.setDistancePerPulse(0.067631);
-		rightEncoder.setDistancePerPulse(0.067631);
+		//leftEncoder.setDistancePerPulse(0.067631);
+		//rightEncoder.setDistancePerPulse(0.067631);
 
-		leftEncoder.reset();
-		rightEncoder.reset();
+		//leftEncoder.reset();
+		//rightEncoder.reset();
 
 		if (OI.mode == OI.JoystickMode.XBOX_MODE) {
 			setDefaultCommand(new ArcadeDrive());

@@ -95,14 +95,14 @@ public class RobotMap {
 		// ENCODERS AND PID
 		// SHENANIGANS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 		leftEncoder = new Encoder(2, 3, false, EncodingType.k4X);
-		SmartDashboard.putNumber("Left Encoder", leftEncoder.getRate());
+		//SmartDashboard.putNumber("Left Encoder", leftEncoder.getRate());
 		leftEncoder.setDistancePerPulse(1.0);
 		leftEncoder.setPIDSourceParameter(PIDSourceParameter.kRate);
 		leftPID = new PIDController(Kp, Ki, Kd, Kf, leftEncoder, leftDriveMotor);
 
 		
-		rightEncoder = new Encoder(0, 1, false, EncodingType.k4X);
-		SmartDashboard.putNumber("Right Encoder", rightEncoder.getRate());
+		rightEncoder = new Encoder(0, 1, true, EncodingType.k4X);
+		//SmartDashboard.putNumber("Right Encoder", rightEncoder.getRate());
 		rightEncoder.setDistancePerPulse(1.0);
 		rightEncoder.setPIDSourceParameter(PIDSourceParameter.kRate);
 		rightPID = new PIDController(Kp, Ki, Kd, Kf, rightEncoder, rightDriveMotor);

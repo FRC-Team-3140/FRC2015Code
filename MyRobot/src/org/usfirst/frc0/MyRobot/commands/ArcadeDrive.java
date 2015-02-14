@@ -13,8 +13,8 @@ import edu.wpi.first.wpilibj.PIDSource;
 public class ArcadeDrive extends Command {
 
 	private static PIDController leftPID = RobotMap.leftPID;
-	private static PIDController rightPID = RobotMap.leftPID;
-	
+	private static PIDController rightPID = RobotMap.rightPID;
+
 	public ArcadeDrive() {
 		requires(Robot.driveTrain);
 	}
