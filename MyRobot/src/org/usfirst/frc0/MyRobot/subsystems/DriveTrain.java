@@ -58,10 +58,12 @@ public class DriveTrain extends Subsystem {
 	 * The log method puts interesting information to the SmartDashboard.
 	 */
 	public void log() {
-		SmartDashboard.putNumber("Left Distance", leftEncoder.getDistance());
+	
 		SmartDashboard.putNumber("Right Distance", rightEncoder.getDistance());
-		SmartDashboard.putNumber("Left Speed", leftEncoder.getRate());
 		SmartDashboard.putNumber("Right Speed", rightEncoder.getRate());
+		
+		SmartDashboard.putNumber("Left Speed", leftEncoder.getRate());
+		SmartDashboard.putNumber("Left Distance", leftEncoder.getDistance());
 	}
 
 	public void reset() {
@@ -78,11 +80,12 @@ public class DriveTrain extends Subsystem {
 
 	@Override
 	protected void initDefaultCommand() {
-		//leftEncoder.setDistancePerPulse(0.067631);
-		//rightEncoder.setDistancePerPulse(0.067631);
-
-		//leftEncoder.reset();
-		//rightEncoder.reset();
+		leftEncoder.setDistancePerPulse(0.067631);
+		rightEncoder.setDistancePerPulse(0.067631);
+		//leftEncoder.setDistancePerPulse(1.0);
+		//rightEncoder.setDistancePerPulse(1.0);
+		leftEncoder.reset();
+		rightEncoder.reset();
 
 		if (OI.mode == OI.JoystickMode.XBOX_MODE) {
 			setDefaultCommand(new ArcadeDrive());

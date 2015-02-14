@@ -101,11 +101,14 @@ public class RobotMap {
 		leftPID = new PIDController(Kp, Ki, Kd, Kf, leftEncoder, leftDriveMotor);
 
 		
-		rightEncoder = new Encoder(0, 1, true, EncodingType.k4X);
+		rightEncoder = new Encoder(1, 0, false, EncodingType.k4X);
 		//SmartDashboard.putNumber("Right Encoder", rightEncoder.getRate());
 		rightEncoder.setDistancePerPulse(1.0);
 		rightEncoder.setPIDSourceParameter(PIDSourceParameter.kRate);
 		rightPID = new PIDController(Kp, Ki, Kd, Kf, rightEncoder, rightDriveMotor);
+		
+		topLimitSwitch = new DigitalInput(8);
+		bottomLimitSwitch = new DigitalInput(9);
 		
 		robotDrive = new RobotDrive(leftDriveMotor, rightDriveMotor);
 

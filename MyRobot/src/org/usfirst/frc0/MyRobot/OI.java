@@ -12,12 +12,16 @@ package org.usfirst.frc0.MyRobot;
 
 import java.io.IOException;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class OI {
+	
+	private static DigitalInput topLimitSwitch = RobotMap.topLimitSwitch;
+	private static DigitalInput bottomLimitSwitch = RobotMap.bottomLimitSwitch;
 
 	public enum GrabberState {
 		OPEN("open"), CLOSE("close"), OFF("off"), ON("on"), STOP("stop");
@@ -219,10 +223,14 @@ public class OI {
 		case DUAL_MODE: {
 			if (joystick[0].getRawAxis(3) != 0) {
 				liftSpeed = joystick[0].getRawAxis(3);
-				if (liftUpButton.get()) {
+				if (liftUpButton.get() && topLimitSwitch.get() == true) {
+					return 0.0;
+				}else if (liftUpButton.get() && topLimitSwitch.get() == false) {
 					return liftSpeed;
-				} else if (liftDownButton.get()) {
-					return -1.0 * liftSpeed;
+				} else if (liftDownButton.get() && bottomLimitSwitch.get() == true) {
+					return 0.0;
+				} else if (liftDownButton.get() && bottomLimitSwitch.get() == false) {
+					return 0.0 * liftSpeed;
 				} else {
 					return 0.0;
 				}
@@ -230,10 +238,14 @@ public class OI {
 		}
 		case XBOX_MODE: {
 			liftSpeed = Math.abs(liftSpeed + 0.05 * joystick[0].getRawAxis(3));
-			if (liftUpButton.get()) {
+			if (liftUpButton.get() && topLimitSwitch.get() == true) {
 				return liftSpeed;
-			} else if (liftDownButton.get()) {
+			} else if (liftUpButton.get() && topLimitSwitch.get() == false) {
+				return 0.0;
+			} else if (liftDownButton.get() && bottomLimitSwitch.get() == true) {
 				return -1.0 * liftSpeed;
+			} else if (liftDownButton.get() && bottomLimitSwitch.get() == false) {
+				return 0.0;
 			} else {
 				return 0.0;
 			}
