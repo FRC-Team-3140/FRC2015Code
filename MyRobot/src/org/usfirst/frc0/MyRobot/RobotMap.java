@@ -11,13 +11,17 @@
 package org.usfirst.frc0.MyRobot;
 
 import edu.wpi.first.wpilibj.Compressor;
+import edu.wpi.first.wpilibj.CounterBase.EncodingType;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.PIDController;
+import edu.wpi.first.wpilibj.PIDSource.PIDSourceParameter;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
@@ -31,6 +35,9 @@ public class RobotMap {
 	public static SpeedController rightDriveMotor;
 	public static SpeedController winchMotor;
 	public static SpeedController binWinchMotor;
+	
+	public static PIDController leftPID;
+	public static PIDController rightPID;
 	// Instantiating RobotDrive
 	public static RobotDrive robotDrive;
 	// Instantiating Solenoids
@@ -44,8 +51,8 @@ public class RobotMap {
 	public static DigitalInput leftGrabberSwitch;
 	public static DigitalInput rightGrabberSwitch;
 	// Instantiating the encoders
-	public static Encoder leftDriveEncoder;
-	public static Encoder rightDriveEncoder;
+	public static Encoder leftEncoder;
+	public static Encoder rightEncoder;
 	public static Encoder winchEncoder;
 
 	// Motor pins
@@ -60,6 +67,7 @@ public class RobotMap {
 	public static int shifterSolenoidDownPin = 5;
 
 	// Linking the instantiations to the pins
+	@SuppressWarnings("deprecation")
 	public static void init() {
 		leftDriveMotor = new Talon(leftDriveMotorPin);
 		LiveWindow.addActuator("driveTrain", "Left Motor",
@@ -79,9 +87,21 @@ public class RobotMap {
 				(Talon) winchMotor);
 
 		binWinchMotor = new Talon(binWinchMotorPin);
-		leftDriveEncoder = new Encoder(2, 3);
-		rightDriveEncoder = new Encoder(0, 1);
+		// ENCODERS AND PID
+		// SHENANIGANS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+		leftEncoder = new Encoder(2, 3, false, EncodingType.k4X);
+		SmartDashboard.putNumber("Left Encoder", leftEncoder.getRate());
+		leftEncoder.setDistancePerPulse(1.0);
+		leftEncoder.setPIDSourceParameter(PIDSourceParameter.kRate);
+		leftPID = new PIDController(1.0, 0.0, 0.0, 0.0, leftEncoder, leftDriveMotor);
 
+		
+		rightEncoder = new Encoder(0, 1, false, EncodingType.k4X);
+		SmartDashboard.putNumber("Right Encoder", rightEncoder.getRate());
+		rightEncoder.setDistancePerPulse(1.0);
+		rightEncoder.setPIDSourceParameter(PIDSourceParameter.kRate);
+		rightPID = new PIDController(1.0, 0.0, 0.0, 0.0, rightEncoder, rightDriveMotor);
+		
 		robotDrive = new RobotDrive(leftDriveMotor, rightDriveMotor);
 
 		robotDrive.setSafetyEnabled(true);
