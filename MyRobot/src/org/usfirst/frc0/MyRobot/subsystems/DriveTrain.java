@@ -84,9 +84,6 @@ public class DriveTrain extends Subsystem {
 		leftEncoder.reset();
 		rightEncoder.reset();
 
-		leftEncoder.setPIDSourceParameter(Encoder.PIDSourceParameter.kRate);
-		rightEncoder.setPIDSourceParameter(Encoder.PIDSourceParameter.kRate);
-
 		if (OI.mode == OI.JoystickMode.XBOX_MODE) {
 			setDefaultCommand(new ArcadeDrive());
 		} else {
