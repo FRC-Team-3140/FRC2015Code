@@ -35,7 +35,7 @@ public class ArcadeDrive extends Command {
 
 		leftPID = new PIDController(kP, kI, kD, Robot.driveTrain.leftEncoder,
 				RobotMap.leftDriveMotor);
-		leftPID = new PIDController(kP, kI, kD, Robot.driveTrain.rightEncoder,
+		rightPID = new PIDController(kP, kI, kD, Robot.driveTrain.rightEncoder,
 				RobotMap.rightDriveMotor);
 
 		/*
