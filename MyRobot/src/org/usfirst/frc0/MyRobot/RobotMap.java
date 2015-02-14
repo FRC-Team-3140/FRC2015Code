@@ -94,16 +94,16 @@ public class RobotMap {
 		binWinchMotor = new Talon(binWinchMotorPin);
 		// ENCODERS AND PID
 		// SHENANIGANS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-		leftEncoder = new Encoder(2, 3, false, EncodingType.k4X);
+		leftEncoder = new Encoder(2, 3);
 		//SmartDashboard.putNumber("Left Encoder", leftEncoder.getRate());
-		leftEncoder.setDistancePerPulse(1.0);
+		leftEncoder.setDistancePerPulse(0.073631);
 		leftEncoder.setPIDSourceParameter(PIDSourceParameter.kRate);
 		leftPID = new PIDController(Kp, Ki, Kd, Kf, leftEncoder, leftDriveMotor);
 
 		
-		rightEncoder = new Encoder(1, 0, false, EncodingType.k4X);
+		rightEncoder = new Encoder(1, 0);
 		//SmartDashboard.putNumber("Right Encoder", rightEncoder.getRate());
-		rightEncoder.setDistancePerPulse(1.0);
+		rightEncoder.setDistancePerPulse(0.073631);
 		rightEncoder.setPIDSourceParameter(PIDSourceParameter.kRate);
 		rightPID = new PIDController(Kp, Ki, Kd, Kf, rightEncoder, rightDriveMotor);
 		

@@ -80,8 +80,8 @@ public class DriveTrain extends Subsystem {
 
 	@Override
 	protected void initDefaultCommand() {
-		leftEncoder.setDistancePerPulse(0.067631);
-		rightEncoder.setDistancePerPulse(0.067631);
+		//leftEncoder.setDistancePerPulse(0.067631);
+		//rightEncoder.setDistancePerPulse(0.067631);
 		//leftEncoder.setDistancePerPulse(1.0);
 		//rightEncoder.setDistancePerPulse(1.0);
 		leftEncoder.reset();
