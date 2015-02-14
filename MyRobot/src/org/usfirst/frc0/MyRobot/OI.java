@@ -12,6 +12,7 @@ package org.usfirst.frc0.MyRobot;
 
 import java.io.IOException;
 
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
@@ -87,6 +88,9 @@ public class OI {
 
 	private double throttle = 0.55;
 	public double liftSpeed = 0.75;
+	
+	public double leftRate = leftEncoder.getRate();
+	public double rightRate = rightEncoder.getRate();
 
 	// private double piecewiseThreshA = 0.02;
 	// private double piecewiseMultA = 0.35;
@@ -96,8 +100,11 @@ public class OI {
 	private static final double xboxDeadzone = 0.03;
 	private static final double joystickDeadzone = 0.02;
 
-	public OI() {
+	public static Encoder leftEncoder = RobotMap.leftEncoder;
+	public static Encoder rightEncoder = RobotMap.rightEncoder;
+	
 
+	public OI() {
 		// One joystick for xbox controller, two for otherwise.
 		switch (mode) {
 		case TRUAL_MODE: {
@@ -182,6 +189,8 @@ public class OI {
 	}
 
 	public double getRightDriveAxis() {
+		getRightRate();
+		SmartDashboard.putNumber("right encoder", rightRate);
 		return -1 * joystickAdjustment(getRawRightDriveAxis());
 	}
 
@@ -205,7 +214,18 @@ public class OI {
 	}
 
 	public double getLeftDriveAxis() {
+		getLeftRate();
+		SmartDashboard.putNumber("left encoder", leftRate);
 		return joystickAdjustment(getRawLeftDriveAxis());
+		
+	}
+	
+	private void getLeftRate() {
+		this.leftRate = leftEncoder.getRate();
+	}
+	
+	private void getRightRate() {
+		this.rightRate = rightEncoder.getRate();
 	}
 
 	// this does not use joystick tolerance since the speed control
@@ -255,7 +275,7 @@ public class OI {
 			return GrabberState.STOP;
 		}
 	}
-
+	
 	public boolean switchLifterMode() {
 		if (switchButton.get() && liftmode == lifterMode.MANUAL_MODE) {
 			liftmode = lifterMode.AUTOMATIC_MODE;

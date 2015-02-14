@@ -1,6 +1,7 @@
 package org.usfirst.frc0.MyRobot.subsystems;
 
 import org.usfirst.frc0.MyRobot.OI;
+import org.usfirst.frc0.MyRobot.Robot;
 import org.usfirst.frc0.MyRobot.RobotMap;
 import org.usfirst.frc0.MyRobot.commands.*;
 
@@ -8,6 +9,8 @@ import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PIDController;
+import edu.wpi.first.wpilibj.CounterBase.EncodingType;
+import edu.wpi.first.wpilibj.PIDSource.PIDSourceParameter;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -16,17 +19,46 @@ public class DriveTrain extends Subsystem {
 	private static SpeedController leftDriveMotor = RobotMap.leftDriveMotor;
 	private static SpeedController rightDriveMotor = RobotMap.rightDriveMotor;
 	private static DoubleSolenoid shifterSolenoid = RobotMap.shifterSolenoid;
-	public final Encoder leftEncoder = RobotMap.leftDriveEncoder;
-	public final Encoder rightEncoder = RobotMap.rightDriveEncoder;
+	
+	public final Encoder leftEncoder = RobotMap.leftEncoder;
+	public final Encoder rightEncoder = RobotMap.rightEncoder;
 	public boolean lowGear = false;
 	public double strainLimit = 0.5;
+	 
+	public double leftKp = 0.0;
+	public double rightKp = 0.0;
+
+	public static PIDController leftPID;
+	public static PIDController rightPID;
+
+	
+	public void setPID() {
+		leftEncoder.reset();
+		leftEncoder.setDistancePerPulse(1.0);
+		leftEncoder.setPIDSourceParameter(PIDSourceParameter.kRate);
+		
+		leftPID = new PIDController(1.0, 0.0, 0.0, 0.0, leftEncoder,
+				leftDriveMotor, 0.02);
+		leftPID.enable();
+
+		rightEncoder.reset();
+		rightEncoder.setDistancePerPulse(1.0);
+		rightEncoder.setPIDSourceParameter(PIDSourceParameter.kRate);
+		rightPID = new PIDController(1.0, 0.0, 0.0, 0.0, rightEncoder,
+				rightDriveMotor, 0.02);
+		rightPID.enable();
+	} 
 
 	public void setLeftPower(double power) {
 		leftDriveMotor.set(power);
 	}
-
+	
 	public void setRightPower(double power) {
 		rightDriveMotor.set(power);
+	}
+	
+	public void setLeftPID(double speed) {
+		
 	}
 
 	public void setPower(double leftPower, double rightPower) {
@@ -78,15 +110,6 @@ public class DriveTrain extends Subsystem {
 
 	@Override
 	protected void initDefaultCommand() {
-		leftEncoder.setDistancePerPulse(0.067631);
-		rightEncoder.setDistancePerPulse(0.067631);
-
-		leftEncoder.reset();
-		rightEncoder.reset();
-
-		leftEncoder.setPIDSourceParameter(Encoder.PIDSourceParameter.kRate);
-		rightEncoder.setPIDSourceParameter(Encoder.PIDSourceParameter.kRate);
-
 		if (OI.mode == OI.JoystickMode.XBOX_MODE) {
 			setDefaultCommand(new ArcadeDrive());
 		} else {
