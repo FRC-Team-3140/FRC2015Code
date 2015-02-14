@@ -65,6 +65,11 @@ public class RobotMap {
 	public static int grabberSolenoidClosePin = 7;
 	public static int shifterSolenoidUpPin = 4;
 	public static int shifterSolenoidDownPin = 5;
+	
+	public static double Kp = 1.0;
+	public static double Ki = 0.0;
+	public static double Kd = 0.0;
+	public static double Kf = 0.0;
 
 	// Linking the instantiations to the pins
 	@SuppressWarnings("deprecation")
@@ -93,14 +98,14 @@ public class RobotMap {
 		SmartDashboard.putNumber("Left Encoder", leftEncoder.getRate());
 		leftEncoder.setDistancePerPulse(1.0);
 		leftEncoder.setPIDSourceParameter(PIDSourceParameter.kRate);
-		leftPID = new PIDController(1.0, 0.0, 0.0, 0.0, leftEncoder, leftDriveMotor);
+		leftPID = new PIDController(Kp, Ki, Kd, Kf, leftEncoder, leftDriveMotor);
 
 		
 		rightEncoder = new Encoder(0, 1, false, EncodingType.k4X);
 		SmartDashboard.putNumber("Right Encoder", rightEncoder.getRate());
 		rightEncoder.setDistancePerPulse(1.0);
 		rightEncoder.setPIDSourceParameter(PIDSourceParameter.kRate);
-		rightPID = new PIDController(1.0, 0.0, 0.0, 0.0, rightEncoder, rightDriveMotor);
+		rightPID = new PIDController(Kp, Ki, Kd, Kf, rightEncoder, rightDriveMotor);
 		
 		robotDrive = new RobotDrive(leftDriveMotor, rightDriveMotor);
 

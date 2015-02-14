@@ -16,8 +16,8 @@ public class DriveTrain extends Subsystem {
 	private static SpeedController leftDriveMotor = RobotMap.leftDriveMotor;
 	private static SpeedController rightDriveMotor = RobotMap.rightDriveMotor;
 	private static DoubleSolenoid shifterSolenoid = RobotMap.shifterSolenoid;
-	public final Encoder leftEncoder = RobotMap.leftDriveEncoder;
-	public final Encoder rightEncoder = RobotMap.rightDriveEncoder;
+	public final Encoder leftEncoder = RobotMap.leftEncoder;
+	public final Encoder rightEncoder = RobotMap.rightEncoder;
 	public boolean lowGear = false;
 	public double strainLimit = 0.5;
 
