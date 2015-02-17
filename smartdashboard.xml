@@ -1,26 +1,36 @@
 <xml version="1.0">
 <dashboard>
+	<widget field="aYAaxis" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.SimpleDial">
+		<location x="807" y="0"/>
+		<property name="Upper Limit" value="1.0"/>
+		<property name="Lower Limit" value="-1.0"/>
+		<property name="Tick Interval" value="0.1"/>
+	</widget>
+	<widget field="aXaxis" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.SimpleDial">
+		<location x="602" y="15"/>
+		<property name="Upper Limit" value="1.0"/>
+		<property name="Lower Limit" value="-1.0"/>
+		<property name="Tick Interval" value="0.1"/>
+	</widget>
+	<widget field="lifterCurrent" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.LinePlot">
+		<location x="707" y="195"/>
+	</widget>
+	<widget field="motorCurrent" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.LinePlot">
+		<location x="269" y="155"/>
+	</widget>
+	<widget field="lifterMode" type="String" class="edu.wpi.first.smartdashboard.gui.elements.FormattedField">
+		<location x="18" y="226"/>
+		<width>169</width>
+	</widget>
 	<widget field="aZAxis" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
 		<location x="0" y="193"/>
 	</widget>
 	<widget field="currentStatus" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
 		<location x="0" y="172"/>
 	</widget>
-	<widget field="lifterCurrent" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="6" y="90"/>
-	</widget>
-	<widget field="aYAaxis" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="6" y="151"/>
-	</widget>
-	<widget field="motorCurrent" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="4" y="64"/>
-	</widget>
 	<widget field="state" type="String" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
 		<location x="6" y="36"/>
 		<width>128</width>
-	</widget>
-	<widget field="aXaxis" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="8" y="119"/>
 	</widget>
 	<widget field="Autonomous Command" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
 		<location x="2" y="2"/>

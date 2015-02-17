@@ -62,7 +62,16 @@ public class OI {
 	}
 
 	public enum LifterMode {
-		MANUAL, AUTOMATIC;
+		MANUAL("MANUAL"), AUTOMATIC("AUTOMATIC");
+		String name;
+
+		private LifterMode(String s) {
+			this.name = s;
+		}
+
+		public String toString() {
+			return "LifterMode." + this.name;
+		}
 	}
 
 	public enum JoystickMode {
@@ -119,8 +128,8 @@ public class OI {
 			this.joystick[xboxJoystick] = new Joystick(0);
 			this.lifterButton = new JoystickButton(joystick[0], 1);
 			this.shifterButton = new JoystickButton(joystick[0], 2);
-			this.liftUpButton = new JoystickButton(joystick[0], 4);
-			this.liftDownButton = new JoystickButton(joystick[0], 3);
+			this.liftUpButton = new JoystickButton(joystick[0], 3);
+			this.liftDownButton = new JoystickButton(joystick[0], 4);
 			this.grabberOpenButton = new JoystickButton(joystick[0], 5);
 			this.grabberCloseButton = new JoystickButton(joystick[0], 6);
 			this.compressorOnButton = new JoystickButton(joystick[0], 8);
@@ -141,7 +150,7 @@ public class OI {
 	}
 
 	private double joystickAdjustment(double rawJoystickValue) {
-		return throttle * rawJoystickValue;
+		return throttle * Math.pow(rawJoystickValue,3);
 	}
 
 	// returns the value of the y axis on the right joystick and sets the
@@ -155,7 +164,7 @@ public class OI {
 		}
 		case DUAL_MODE: {
 			return joystickDeadzone(
-					Math.pow(joystick[rightJoystick].getRawAxis(1), 3),
+					joystick[rightJoystick].getRawAxis(1),
 					joystickDeadzone);
 		}
 		case XBOX_MODE: {
@@ -182,7 +191,7 @@ public class OI {
 		}
 		case XBOX_MODE: {
 			return joystickDeadzone(
-					Math.pow(joystick[xboxJoystick].getRawAxis(1), 3),
+					joystick[xboxJoystick].getRawAxis(1),
 					xboxDeadzone);
 		}
 		}
@@ -215,7 +224,7 @@ public class OI {
 			}
 		}
 		case XBOX_MODE: {
-			liftSpeed = Math.abs(liftSpeed + 0.05 * joystick[0].getRawAxis(3));
+			liftSpeed = Math.abs(liftSpeed + 0.05 * joystick[0].getRawAxis(3) - 0.05 * joystick[0].getRawAxis(2));
 			if (liftUpButton.get()) {
 				return liftSpeed;
 			} else if (liftDownButton.get()) {

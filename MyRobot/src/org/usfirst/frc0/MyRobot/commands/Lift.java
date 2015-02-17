@@ -37,6 +37,7 @@ public class Lift extends Command {
 	protected void execute() {
 		double lifterCurrent = Robot.monitor.getLifterCurrentStatus();
 		SmartDashboard.putNumber("lifterCurrent", lifterCurrent);
+		SmartDashboard.putString("lifterMode", Robot.oi.lifterMode.toString());
 		if (Robot.oi.lifterMode == LifterMode.MANUAL) {
 			lift(Robot.oi.getLiftSpeed());
 		} else if (Robot.oi.lifterMode == LifterMode.AUTOMATIC) {

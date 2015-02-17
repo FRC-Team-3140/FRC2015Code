@@ -27,6 +27,7 @@ public class WinchLifter extends Subsystem implements ILifter {
     public void moveTo(double height) {
 	//the position is the distance from the current location
 	//given in stack levels
+    	
     }
 
     public void initDefaultCommand() {
