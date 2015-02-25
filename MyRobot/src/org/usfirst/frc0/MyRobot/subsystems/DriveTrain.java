@@ -1,6 +1,7 @@
 package org.usfirst.frc0.MyRobot.subsystems;
 
 import org.usfirst.frc0.MyRobot.OI;
+import org.usfirst.frc0.MyRobot.Robot;
 import org.usfirst.frc0.MyRobot.RobotMap;
 import org.usfirst.frc0.MyRobot.commands.*;
 
@@ -32,8 +33,8 @@ public class DriveTrain extends Subsystem {
 	public void setPower(double leftPower, double rightPower) {
 		setLeftPower(leftPower);
 		setRightPower(rightPower);
-	}
-
+	}	
+	
 	public void shift() {
 		if (lowGear = true) {
 			upshift();

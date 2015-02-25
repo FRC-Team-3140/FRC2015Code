@@ -13,10 +13,14 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  *
  */
 public class Lift extends Command {
+
+	boolean complete;
+
 	public Lift() {
 		// Use requires() here to declare subsystem dependencies
 		// eg. requires(chassis);
 		requires(Robot.lifter);
+		this.complete = false;
 	}
 
 	// Called just before this Command runs the first time
@@ -29,23 +33,24 @@ public class Lift extends Command {
 
 	public void moveLift(double rotations) {
 		Robot.lifter.moveTo(rotations);
-	
+
 	}
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
 		double lifterCurrent = Robot.monitor.getLifterCurrentStatus();
 		SmartDashboard.putNumber("lifterCurrent", lifterCurrent);
-		if(OI.liftmode == lifterMode.MANUAL_MODE) {
+		if (OI.liftmode == lifterMode.MANUAL_MODE) {
 			lift(Robot.oi.getLiftSpeed());
-		}else if(OI.liftmode == lifterMode.AUTOMATIC_MODE) {
+		} else if (OI.liftmode == lifterMode.AUTOMATIC_MODE) {
 			Robot.lifter.moveTo(1);
 		}
+		this.complete = true;
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
-		return false;
+		return this.complete;
 	}
 
 	// Called once after isFinished returns true

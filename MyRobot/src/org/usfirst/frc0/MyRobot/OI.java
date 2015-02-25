@@ -19,7 +19,7 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class OI {
-	
+
 	private static DigitalInput topLimitSwitch = RobotMap.topLimitSwitch;
 	private static DigitalInput bottomLimitSwitch = RobotMap.bottomLimitSwitch;
 
@@ -72,9 +72,10 @@ public class OI {
 	public enum lifterMode {
 		MANUAL_MODE, AUTOMATIC_MODE
 	}
-
+	
 	public final static JoystickMode mode = JoystickMode.XBOX_MODE;
 	public static lifterMode liftmode = lifterMode.MANUAL_MODE;
+	public static boolean limitmode = false;
 	private final static int leftJoystick = 0;
 	private final static int rightJoystick = 1;
 	private final static int xboxJoystick = 0;
@@ -89,7 +90,7 @@ public class OI {
 	private Button compressorOnButton;
 	private Button compressorOffButton;
 
-	private double throttle = 0.55;
+	public double throttle = 0.65;
 	public double liftSpeed = 0.8;
 
 	// private double piecewiseThreshA = 0.02;
@@ -127,8 +128,8 @@ public class OI {
 			this.joystick[xboxJoystick] = new Joystick(0);
 			this.switchButton = new JoystickButton(joystick[0], 1);
 			this.shifterButton = new JoystickButton(joystick[0], 2);
-			this.liftUpButton = new JoystickButton(joystick[0], 3);
-			this.liftDownButton = new JoystickButton(joystick[0], 4);
+			this.liftUpButton = new JoystickButton(joystick[0], 4);
+			this.liftDownButton = new JoystickButton(joystick[0], 3);
 			this.grabberOpenButton = new JoystickButton(joystick[0], 5);
 			this.grabberCloseButton = new JoystickButton(joystick[0], 6);
 			this.compressorOnButton = new JoystickButton(joystick[0], 8);
@@ -223,13 +224,13 @@ public class OI {
 		case DUAL_MODE: {
 			if (joystick[0].getRawAxis(3) != 0) {
 				liftSpeed = joystick[0].getRawAxis(3);
-				if (liftUpButton.get() && topLimitSwitch.get() == true) {
+				if (liftUpButton.get()) {
 					return 0.0;
-				}else if (liftUpButton.get() && topLimitSwitch.get() == false) {
+				} else if (liftUpButton.get()) {
 					return liftSpeed;
-				} else if (liftDownButton.get() && bottomLimitSwitch.get() == true) {
+				} else if (liftDownButton.get()) {
 					return 0.0;
-				} else if (liftDownButton.get() && bottomLimitSwitch.get() == false) {
+				} else if (liftDownButton.get()) {
 					return 0.0 * liftSpeed;
 				} else {
 					return 0.0;
@@ -238,14 +239,10 @@ public class OI {
 		}
 		case XBOX_MODE: {
 			liftSpeed = Math.abs(liftSpeed + 0.05 * joystick[0].getRawAxis(3));
-			if (liftUpButton.get() && topLimitSwitch.get() == true) {
+			if (liftUpButton.get()) {
 				return liftSpeed;
-			} else if (liftUpButton.get() && topLimitSwitch.get() == false) {
-				return 0.0;
-			} else if (liftDownButton.get() && bottomLimitSwitch.get() == true) {
+			} else if (liftDownButton.get()) {
 				return -1.0 * liftSpeed;
-			} else if (liftDownButton.get() && bottomLimitSwitch.get() == false) {
-				return 0.0;
 			} else {
 				return 0.0;
 			}

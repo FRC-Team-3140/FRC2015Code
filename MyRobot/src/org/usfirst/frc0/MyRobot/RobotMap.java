@@ -96,15 +96,15 @@ public class RobotMap {
 		// SHENANIGANS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 		leftEncoder = new Encoder(2, 3);
 		//SmartDashboard.putNumber("Left Encoder", leftEncoder.getRate());
-		leftEncoder.setDistancePerPulse(0.073631);
-		leftEncoder.setPIDSourceParameter(PIDSourceParameter.kRate);
+		leftEncoder.setDistancePerPulse(0.042);
+		leftEncoder.setPIDSourceParameter(PIDSourceParameter.kDistance);
 		leftPID = new PIDController(Kp, Ki, Kd, Kf, leftEncoder, leftDriveMotor);
 
 		
 		rightEncoder = new Encoder(1, 0);
 		//SmartDashboard.putNumber("Right Encoder", rightEncoder.getRate());
-		rightEncoder.setDistancePerPulse(0.073631);
-		rightEncoder.setPIDSourceParameter(PIDSourceParameter.kRate);
+		rightEncoder.setDistancePerPulse(0.042);
+		rightEncoder.setPIDSourceParameter(PIDSourceParameter.kDistance);
 		rightPID = new PIDController(Kp, Ki, Kd, Kf, rightEncoder, rightDriveMotor);
 		
 		topLimitSwitch = new DigitalInput(8);

@@ -11,21 +11,64 @@
 package org.usfirst.frc0.MyRobot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.CommandGroup;
+import edu.wpi.first.wpilibj.command.Scheduler;
+
 import org.usfirst.frc0.MyRobot.Robot;
 
 /**
  *
  */
-public class AutonomousCommand extends Command {
-	public long mTime = 1000;
-	public long iTime = System.currentTimeMillis();
+public class AutonomousCommand extends CommandGroup {
+	public enum StartingPlace {
+		LEFT_POS, MIDDLE_POS, RIGHT_POS
+	}
+
+	public final static StartingPlace place = StartingPlace.LEFT_POS;
+
+	/*
+	 * public long mTime = 1000; public long iTime = System.currentTimeMillis();
+	 */
 	public AutonomousCommand() {
+		switch (place) {
+		case LEFT_POS: {
+			addSequential(new GrabberLift(1.3));
+			addSequential(new GrabberClose());
+			addSequential(new DriveForward(.85));
+			addSequential(new DriveForward(2.3));
+			addSequential(new DriveForward(.4));
+			addSequential(new DriveForward(2));
+			addSequential(new AutoDrive(2));
+
+			// addSequential(new Turn(-1)); <= -1 MEANS LEFT TO AIM AT LEFT
+			// CHUTE
+			break;
+		}
+		case MIDDLE_POS: { // WHAT TO DO HERE???
+			addSequential(new GrabberClose());
+			addSequential(new GrabberLift(1));
+			addSequential(new DriveForward(1));
+			break;
+		}
+		case RIGHT_POS: {
+			addSequential(new GrabberClose());
+			addSequential(new GrabberLift(1));
+			addSequential(new DriveForward(10));
+			// addSequential(new Turn(1)); <= 1 MEANS RIGHT TO AIM AT RIGHT
+			// CHUTE
+			addSequential(new DriveForward(2));
+			break;
+		}
+		default:
+			break;
+
+		}
 		// Use requires() here to declare subsystem dependencies
 		// eg. requires(chassis);
-		requires(Robot.driveTrain);
-		requires(Robot.grabber);
-		requires(Robot.lifter);
-		
+		/*
+		 * requires(Robot.driveTrain); requires(Robot.grabber);
+		 * requires(Robot.lifter);
+		 */
 
 	}
 
@@ -35,11 +78,11 @@ public class AutonomousCommand extends Command {
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		long cTime = System.currentTimeMillis();
-		if(cTime-iTime<=1000){
-		Robot.driveTrain.setLeftPower(.1);
-		Robot.driveTrain.setRightPower(.1);
-		}
+		/*
+		 * long cTime = System.currentTimeMillis(); if(cTime-iTime<=1000){
+		 * Robot.driveTrain.setLeftPower(.1);
+		 * Robot.driveTrain.setRightPower(.1);
+		 */
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
@@ -49,6 +92,7 @@ public class AutonomousCommand extends Command {
 
 	// Called once after isFinished returns true
 	protected void end() {
+		Scheduler.getInstance().removeAll();
 	}
 
 	// Called when another command which requires one or more of the same
