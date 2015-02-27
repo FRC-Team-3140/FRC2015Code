@@ -13,6 +13,7 @@ package org.usfirst.frc0.MyRobot.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc0.MyRobot.Robot;
 
@@ -22,41 +23,56 @@ import org.usfirst.frc0.MyRobot.Robot;
 public class AutonomousCommand extends CommandGroup {
 	public enum StartingPlace {
 		LEFT_POS, MIDDLE_POS, RIGHT_POS
+		
 	}
-
-	public final static StartingPlace place = StartingPlace.LEFT_POS;
-
+	
+	
+	public static StartingPlace toStartingPlaceEnum(String value) {
+		if (value == "left") {
+			return StartingPlace.LEFT_POS;
+		} else if(value == "middle") {
+			return StartingPlace.MIDDLE_POS;
+		} else if(value == "right") {
+			return StartingPlace.RIGHT_POS;
+		}
+		return StartingPlace.MIDDLE_POS;
+	}
+	
+	public final static StartingPlace place = toStartingPlaceEnum(SmartDashboard.getString("position"));
+	
 	/*
 	 * public long mTime = 1000; public long iTime = System.currentTimeMillis();
 	 */
 	public AutonomousCommand() {
 		switch (place) {
 		case LEFT_POS: {
-			addSequential(new GrabberLift(1.3));
+			addSequential(new GrabberLift(SmartDashboard.getNumber("lift")));
 			addSequential(new GrabberClose());
-			addSequential(new DriveForward(.85));
-			addSequential(new DriveForward(2.3));
-			addSequential(new DriveForward(.4));
-			addSequential(new DriveForward(2));
-			addSequential(new AutoDrive(2));
-
+			addSequential(new DriveForward(SmartDashboard.getNumber("moveLift"), true));
+			addSequential(new DriveForward(SmartDashboard.getNumber("drive") + SmartDashboard.getNumber("finish"), false));
+			addSequential(new AutoDrive(SmartDashboard.getNumber("rotateLeft")));
 			// addSequential(new Turn(-1)); <= -1 MEANS LEFT TO AIM AT LEFT
 			// CHUTE
 			break;
 		}
 		case MIDDLE_POS: { // WHAT TO DO HERE???
+			addSequential(new GrabberLift(SmartDashboard.getNumber("lift")));
 			addSequential(new GrabberClose());
-			addSequential(new GrabberLift(1));
-			addSequential(new DriveForward(1));
+			addSequential(new DriveForward(SmartDashboard.getNumber("moveLift"), true));
+			addSequential(new DriveForward(SmartDashboard.getNumber("drive"), false));
+			addSequential(new DriveForward(SmartDashboard.getNumber("finish"), true));
+			addSequential(new AutoDrive(SmartDashboard.getNumber("rotate")));
 			break;
 		}
 		case RIGHT_POS: {
+			addSequential(new GrabberLift(SmartDashboard.getNumber("lift")));
 			addSequential(new GrabberClose());
-			addSequential(new GrabberLift(1));
-			addSequential(new DriveForward(10));
-			// addSequential(new Turn(1)); <= 1 MEANS RIGHT TO AIM AT RIGHT
+			addSequential(new DriveForward(SmartDashboard.getNumber("moveLift"), true));
+			addSequential(new DriveForward(SmartDashboard.getNumber("drive"), false));
+			addSequential(new DriveForward(SmartDashboard.getNumber("finish"), true));
+			addSequential(new AutoDrive(SmartDashboard.getNumber("rotateRight")));
+		// addSequential(new Turn(1)); <= 1 MEANS RIGHT TO AIM AT RIGHT
 			// CHUTE
-			addSequential(new DriveForward(2));
 			break;
 		}
 		default:

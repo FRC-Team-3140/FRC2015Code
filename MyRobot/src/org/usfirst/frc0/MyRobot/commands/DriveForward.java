@@ -16,13 +16,15 @@ public class DriveForward extends Command {
 	private static PIDController rightPID = RobotMap.rightPID;
 
 	private double distance;
+	private boolean lifting;
 
-	public DriveForward(double distance) {
+	public DriveForward(double distance, boolean lifting) {
 		// Use requires() here to declare subsystem dependencies
 		// eg. requires(chassis);
 		requires(Robot.lifter);
 		requires(Robot.driveTrain);
 		this.distance = distance;
+		this.lifting = lifting;
 	}
 
 	// Called just before this Command runs the first time
@@ -35,7 +37,7 @@ public class DriveForward extends Command {
 		 * rightPID.setAbsoluteTolerance(0.5); leftPID.enable();
 		 * rightPID.enable();
 		 */
-		if (distance < 1.5) {
+		if (this.lifting) {
 			this.liftDrive(distance * 1000);
 		} else {
 			this.drive(distance * 1000);

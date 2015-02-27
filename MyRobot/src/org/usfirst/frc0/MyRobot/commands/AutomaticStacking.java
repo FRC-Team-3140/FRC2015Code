@@ -11,6 +11,7 @@ import org.usfirst.frc0.MyRobot.*;
 public class AutomaticStacking extends CommandGroup {
 
     public AutomaticStacking() {
+    	addSequential(new DriveForward(1, true));
     	addSequential(new GrabberOpen());
     	addSequential(new GrabberLift(-1));
     	addSequential(new GrabberClose());

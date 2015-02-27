@@ -20,9 +20,9 @@ public class EMonitor extends Command {
 	protected void execute() {
 		double[] accelerations;
 		accelerations = Robot.monitor.getAcceleration();
-		SmartDashboard.putNumber("aXaxis", accelerations[0]);
-		SmartDashboard.putNumber("aZAxis", accelerations[1]);
-		SmartDashboard.putNumber("aYAaxis", accelerations[2]);
+		SmartDashboard.putNumber("Xaxis", accelerations[0]);
+		SmartDashboard.putNumber("Zaxis", accelerations[1]);
+		SmartDashboard.putNumber("Yaxis", accelerations[2]);
 	}
 
 	@Override

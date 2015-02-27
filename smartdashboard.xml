@@ -1,35 +1,64 @@
 <xml version="1.0">
 <dashboard>
-	<widget field="lifterCurrent" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="6" y="90"/>
+	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.Label">
+		<location x="690" y="82"/>
+		<width>157</width>
+		<height>26</height>
+		<property name="Text" value="Drifting like we are in NASCAR"/>
+	</static-widget>
+	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.Label">
+		<location x="305" y="63"/>
+		<width>102</width>
+		<height>44</height>
+		<property name="Text" value="Lift like We are Swole"/>
+	</static-widget>
+	<widget field="aXaxis" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.LinePlot">
+		<location x="394" y="195"/>
+		<width>409</width>
+		<height>264</height>
 	</widget>
-	<widget field="aYAaxis" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="6" y="151"/>
+	<widget field="aYAaxis" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.LinePlot">
+		<location x="17" y="196"/>
+		<width>367</width>
+		<height>270</height>
 	</widget>
-	<widget field="motorCurrent" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="4" y="64"/>
+	<widget field="motorCurrent" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.SimpleDial">
+		<location x="845" y="5"/>
+		<width>267</width>
+		<height>170</height>
+		<property name="Upper Limit" value="160.0"/>
+		<property name="Lower Limit" value="-160.0"/>
+		<property name="Tick Interval" value="20.0"/>
 	</widget>
+	<widget field="lifterCurrent" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.SimpleDial">
+		<location x="422" y="9"/>
+		<width>262</width>
+		<height>158</height>
+		<property name="Upper Limit" value="40.0"/>
+		<property name="Lower Limit" value="-40.0"/>
+		<property name="Tick Interval" value="5.0"/>
+	</widget>
+	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.RobotPreferences">
+		<location x="816" y="197"/>
+		<width>331</width>
+		<height>262</height>
+	</static-widget>
 	<widget field="state" type="String" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="6" y="36"/>
-		<width>128</width>
-	</widget>
-	<widget field="aXaxis" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="8" y="119"/>
+		<location x="214" y="11"/>
+		<width>187</width>
 	</widget>
 	<widget field="Autonomous Command" type="Command" class="edu.wpi.first.smartdashboard.gui.elements.Command">
 		<location x="2" y="2"/>
 	</widget>
 	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.Image">
-		<location x="219" y="29"/>
+		<location x="21" y="47"/>
 	</static-widget>
 	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.ConnectionIndicator">
-		<location x="447" y="72"/>
+		<location x="151" y="59"/>
 		<width>117</width>
-		<height>78</height>
+		<height>88</height>
 	</static-widget>
 </dashboard>
 <live-window>
 </live-window>
-	<hidden field="aZAxis"/>
-	<hidden field="currentStatus"/>
 </xml>
