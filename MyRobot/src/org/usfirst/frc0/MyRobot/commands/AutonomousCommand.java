@@ -16,17 +16,25 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc0.MyRobot.Robot;
+import org.usfirst.frc0.MyRobot.commands.AutoDrive.DriveDirection;
 
 /**
  *
  */
 public class AutonomousCommand extends CommandGroup {
+
 	public enum StartingPlace {
 		LEFT_POS, MIDDLE_POS, RIGHT_POS
 		
 	}
 	
-	
+	private double lift;
+	private double moveLift;
+	private double drive;
+	private double finish;
+
+	private DriveDirection rotate;
+
 	public static StartingPlace toStartingPlaceEnum(String value) {
 		if (value == "left") {
 			return StartingPlace.LEFT_POS;
@@ -38,56 +46,51 @@ public class AutonomousCommand extends CommandGroup {
 		return StartingPlace.MIDDLE_POS;
 	}
 	
-	public final static StartingPlace place = toStartingPlaceEnum(SmartDashboard.getString("position"));
+	
+
+
+	public final static StartingPlace place = 
+		toStartingPlaceEnum(SmartDashboard.getString("position"));
 	
 	/*
 	 * public long mTime = 1000; public long iTime = System.currentTimeMillis();
 	 */
 	public AutonomousCommand() {
+
+		lift = SmartDashboard.getNumber("lift");		
+		moveLift = SmartDashboard.getNumber("moveLift");
+		drive = SmartDashboard.getNumber("drive");
+		finish = SmartDashboard.getNumber("finish");
 		switch (place) {
 		case LEFT_POS: {
-			addSequential(new GrabberLift(SmartDashboard.getNumber("lift")));
-			addSequential(new GrabberClose());
-			addSequential(new DriveForward(SmartDashboard.getNumber("moveLift"), true));
-			addSequential(new DriveForward(SmartDashboard.getNumber("drive") + SmartDashboard.getNumber("finish"), false));
-			addSequential(new AutoDrive(SmartDashboard.getNumber("rotateLeft")));
-			// addSequential(new Turn(-1)); <= -1 MEANS LEFT TO AIM AT LEFT
-			// CHUTE
+			drive = drive + finish * 0.5;
+			finish = 0;
+			rotate = SmartDashboard.getNumber("rotateLeft");
+			turnDirection = DriveDirection.LEFT_TURN;
 			break;
 		}
 		case MIDDLE_POS: { // WHAT TO DO HERE???
-			addSequential(new GrabberLift(SmartDashboard.getNumber("lift")));
-			addSequential(new GrabberClose());
-			addSequential(new DriveForward(SmartDashboard.getNumber("moveLift"), true));
-			addSequential(new DriveForward(SmartDashboard.getNumber("drive"), false));
-			addSequential(new DriveForward(SmartDashboard.getNumber("finish"), true));
-			addSequential(new AutoDrive(SmartDashboard.getNumber("rotate")));
+			rotate = SmartDashboard.getNumber("rotate");
+			turnDirection = DriveDirection.RIGHT_TURN;
 			break;
 		}
 		case RIGHT_POS: {
-			addSequential(new GrabberLift(SmartDashboard.getNumber("lift")));
-			addSequential(new GrabberClose());
-			addSequential(new DriveForward(SmartDashboard.getNumber("moveLift"), true));
-			addSequential(new DriveForward(SmartDashboard.getNumber("drive"), false));
-			addSequential(new DriveForward(SmartDashboard.getNumber("finish"), true));
-			addSequential(new AutoDrive(SmartDashboard.getNumber("rotateRight")));
-		// addSequential(new Turn(1)); <= 1 MEANS RIGHT TO AIM AT RIGHT
-			// CHUTE
+			rotate = SmartDashboard.getNumber("rotateRight");
+			turnDirection = DriveDirection.RIGHT_TURN;
 			break;
 		}
 		default:
 			break;
-
+			
 		}
-		// Use requires() here to declare subsystem dependencies
-		// eg. requires(chassis);
-		/*
-		 * requires(Robot.driveTrain); requires(Robot.grabber);
-		 * requires(Robot.lifter);
-		 */
-
-	}
-
+		addSequential(new GrabberLift(lift));
+		addSequential(new GrabberClose());
+		addSequential(new Drive(moveLift,true));
+		addSequential(new Drive(drive, false, DriveDirection.FORWARD));
+		addSequential(new Drive(finish, true));
+		addSequential(new Drive(rotate, false, turnDirection));             
+	}	
+	
 	// Called just before this Command runs the first time
 	protected void initialize() {
 	}
