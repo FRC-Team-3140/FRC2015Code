@@ -25,72 +25,69 @@ public class AutonomousCommand extends CommandGroup {
 
 	public enum StartingPlace {
 		LEFT_POS, MIDDLE_POS, RIGHT_POS
-		
-	}
-	
-	private double lift;
+
+	};
+
 	private double moveLift;
 	private double drive;
 	private double finish;
+	private double rotate;
 
-	private DriveDirection rotate;
+	private DriveDirection turnDirection;
 
 	public static StartingPlace toStartingPlaceEnum(String value) {
 		if (value == "left") {
 			return StartingPlace.LEFT_POS;
-		} else if(value == "middle") {
+		} else if (value == "middle") {
 			return StartingPlace.MIDDLE_POS;
-		} else if(value == "right") {
+		} else if (value == "right") {
 			return StartingPlace.RIGHT_POS;
 		}
 		return StartingPlace.MIDDLE_POS;
 	}
-	
-	
 
+	public static StartingPlace place;
 
-	public final static StartingPlace place = 
-		toStartingPlaceEnum(SmartDashboard.getString("position"));
-	
 	/*
 	 * public long mTime = 1000; public long iTime = System.currentTimeMillis();
 	 */
 	public AutonomousCommand() {
 
-		lift = SmartDashboard.getNumber("lift");		
-		moveLift = SmartDashboard.getNumber("moveLift");
-		drive = SmartDashboard.getNumber("drive");
-		finish = SmartDashboard.getNumber("finish");
+		place = StartingPlace.MIDDLE_POS;
+		moveLift = 1;
+		drive = 5;
+		finish = 1.5;
+
 		switch (place) {
 		case LEFT_POS: {
 			drive = drive + finish * 0.5;
 			finish = 0;
-			rotate = SmartDashboard.getNumber("rotateLeft");
+			rotate =3;
 			turnDirection = DriveDirection.LEFT_TURN;
 			break;
 		}
 		case MIDDLE_POS: { // WHAT TO DO HERE???
-			rotate = SmartDashboard.getNumber("rotate");
+			rotate = 4;
 			turnDirection = DriveDirection.RIGHT_TURN;
 			break;
 		}
 		case RIGHT_POS: {
-			rotate = SmartDashboard.getNumber("rotateRight");
+			rotate = 4;
 			turnDirection = DriveDirection.RIGHT_TURN;
 			break;
 		}
 		default:
 			break;
-			
+
 		}
-		addSequential(new GrabberLift(lift));
+		addSequential(new GrabberLift(1.25));
 		addSequential(new GrabberClose());
-		addSequential(new Drive(moveLift,true));
-		addSequential(new Drive(drive, false, DriveDirection.FORWARD));
-		addSequential(new Drive(finish, true));
-		addSequential(new Drive(rotate, false, turnDirection));             
-	}	
-	
+		addSequential(new AutoDrive(moveLift, true));
+		addSequential(new AutoDrive(drive, false, DriveDirection.FORWARD));
+		addSequential(new AutoDrive(finish, false));
+		addSequential(new AutoDrive(rotate, false, turnDirection));
+	}
+
 	// Called just before this Command runs the first time
 	protected void initialize() {
 	}

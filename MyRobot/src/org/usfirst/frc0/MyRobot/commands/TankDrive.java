@@ -43,7 +43,7 @@ public class TankDrive extends Command {
 	}
 
 	public void shift() {
-		Robot.driveTrain.shift();
+		Robot.driveTrain.downshift();
 	}
 
 	// Called repeatedly when this Command is scheduled to run

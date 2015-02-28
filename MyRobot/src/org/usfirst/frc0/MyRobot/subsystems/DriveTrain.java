@@ -19,7 +19,6 @@ public class DriveTrain extends Subsystem {
 	private static DoubleSolenoid shifterSolenoid = RobotMap.shifterSolenoid;
 	public final Encoder leftEncoder = RobotMap.leftEncoder;
 	public final Encoder rightEncoder = RobotMap.rightEncoder;
-	public boolean lowGear = false;
 	public double strainLimit = 0.5;
 
 	public void setLeftPower(double power) {
@@ -34,25 +33,15 @@ public class DriveTrain extends Subsystem {
 		setLeftPower(leftPower);
 		setRightPower(rightPower);
 	}	
-	
-	public void shift() {
-		if (lowGear = true) {
-			upshift();
-		} else {
-			downshift();
-		}
-	}
 
-	private void upshift() {
+	public void upshift() {
 		shifterSolenoid.set(DoubleSolenoid.Value.kForward);
 		shifterSolenoid.set(DoubleSolenoid.Value.kOff);
-		lowGear = false;
 	}
 
-	private void downshift() {
+	public void downshift() {
 		shifterSolenoid.set(DoubleSolenoid.Value.kReverse);
 		shifterSolenoid.set(DoubleSolenoid.Value.kOff);
-		lowGear = true;
 	}
 
 	/**

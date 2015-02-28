@@ -19,7 +19,7 @@ public class WinchLifter extends Subsystem implements ILifter {
 	private DigitalInput topLimitSwitch = RobotMap.topLimitSwitch;
 	private DigitalInput bottomLimitSwitch = RobotMap.bottomLimitSwitch;
 
-	private long period = 700; // in ms
+	private long period = 500; // in ms
 
 	public void moveLift(double power) {
 		if (Robot.oi.limitmode == true) {
@@ -30,7 +30,6 @@ public class WinchLifter extends Subsystem implements ILifter {
 			} else if (power != 0) {
 				if (bottomLimitSwitch.get()) {
 					winchMotor.set(power);
-
 				}
 			}
 		} else {
@@ -71,7 +70,7 @@ public class WinchLifter extends Subsystem implements ILifter {
 		long cTime;
 		long iTime = System.currentTimeMillis();
 		do {
-			this.moveLift(-1.0);
+			this.moveLift(-Robot.oi.liftSpeed);
 			cTime = System.currentTimeMillis();
 		} while (cTime - iTime <= period);
 

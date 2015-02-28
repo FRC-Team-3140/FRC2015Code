@@ -35,9 +35,6 @@ public class ArcadeDrive extends Command {
 		Robot.driveTrain.setRightPower(speed);
 	}
 
-	public void shift() {
-		Robot.driveTrain.shift();
-	}
 
 	public void PIDDrive() {
 		leftPID.setSetpoint(Robot.oi.getLeftDriveAxis());
@@ -49,18 +46,13 @@ public class ArcadeDrive extends Command {
 		Robot.driveTrain.log();
 		SmartDashboard.putBoolean("currentStatus",
 				Robot.monitor.getMotorCurrentStatus());
-		if (Robot.monitor.getMotorCurrentStatus() != true) {
-			setSpeeds(Robot.oi.getLeftDriveAxis(), Robot.oi.getRightDriveAxis());
-		} else if (Robot.driveTrain.lowGear) {
-			setSpeeds(
-					Robot.driveTrain.strainLimit * Robot.oi.getLeftDriveAxis(),
-					Robot.driveTrain.strainLimit * Robot.oi.getRightDriveAxis());
-		} else {
-			Robot.driveTrain.shift();
-		}
 		if (Robot.oi.getShifterButton()) {
-			shift();
+			Robot.driveTrain.upshift();
+		} else if (Robot.oi.getSwitchButton()) {
+			Robot.driveTrain.downshift();
 		}
+		
+		setSpeeds(Robot.oi.getLeftDriveAxis(), Robot.oi.getRightDriveAxis());
 	}
 
 	// Make this return true when this Command no longer needs to run execute()

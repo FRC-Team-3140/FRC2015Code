@@ -1,6 +1,7 @@
 package org.usfirst.frc0.MyRobot.commands;
 
 import org.usfirst.frc0.MyRobot.Robot;
+
 import org.usfirst.frc0.MyRobot.RobotMap;
 
 import edu.wpi.first.wpilibj.PIDController;
@@ -12,20 +13,18 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class AutoDrive extends Command {
 
-
 	public enum DriveDirection {
 		FORWARD, BACKWARD, LEFT_TURN, RIGHT_TURN
 	}
-	
+
 	private static PIDController leftPID = RobotMap.leftPID;
 	private static PIDController rightPID = RobotMap.rightPID;
 
 	private double distance;
 	private boolean lifting;
 	private DriveDirection direction;
-	
-	public DriveForward(double distance, boolean lifting,
-	                    DriveDirection direction) {
+
+	public AutoDrive(double distance, boolean lifting, DriveDirection direction) {
 		// Use requires() here to declare subsystem dependencies
 		// eg. requires(chassis);
 		requires(Robot.lifter);
@@ -35,14 +34,14 @@ public class AutoDrive extends Command {
 		this.lifting = lifting;
 	}
 
-	public DriveForward(double distance, boolean lifting) {
+	public AutoDrive(double distance, boolean lifting) {
 		// Use requires() here to declare subsystem dependencies
 		// eg. requires(chassis);
 		requires(Robot.lifter);
 		requires(Robot.driveTrain);
 		this.distance = distance;
 		this.lifting = lifting;
-		this.direction = FORWARD;
+		this.direction = DriveDirection.FORWARD;
 	}
 
 	// Called just before this Command runs the first time
@@ -68,21 +67,20 @@ public class AutoDrive extends Command {
 		long cTime;
 		long iTime = System.currentTimeMillis();
 		do {
-			if (this.forward == FORWARD) {
+			if (this.direction == DriveDirection.FORWARD) {
+				Robot.driveTrain
+						.setPower(-Robot.oi.throttle, Robot.oi.throttle);
+			} else if (this.direction == DriveDirection.BACKWARD) {
+				Robot.driveTrain
+						.setPower(Robot.oi.throttle, -Robot.oi.throttle);
+			} else if (this.direction == DriveDirection.LEFT_TURN) {
+				Robot.driveTrain.setPower(Robot.oi.throttle, Robot.oi.throttle);
+
+			} else if (this.direction == DriveDirection.RIGHT_TURN) {
 				Robot.driveTrain.setPower(-Robot.oi.throttle,
-				                          Robot.oi.throttle);
-			} else if(this.direction == BACKWARD) {
-				Robot.driveTrain.setPower(Robot.oi.throttle,
-				                          -Robot.oi.throttle);
-			} else if (this.direction == LEFT_TURN) {
-				Robot.driveTrain.setPower(Robot.oi.throttle,
-				                          Robot.oi.throttle);
-	
-			} else if (this.direction == RIGHT_TURN) { 
-				Robot.driveTrain.setPower(-Robot.oi.throttle,
-				                          -Robot.oi.throttle);
+						-Robot.oi.throttle);
 			}
-			Robot.lifter.moveLift(Robot.oi.liftSpeed);
+			Robot.lifter.moveLift(-Robot.oi.liftSpeed);
 			cTime = System.currentTimeMillis();
 		} while (cTime - iTime <= period);
 		Robot.lifter.stop();
@@ -93,19 +91,19 @@ public class AutoDrive extends Command {
 		long cTime;
 		long iTime = System.currentTimeMillis();
 		do {
-			if (this.forward == FORWARD) {
-				Robot.driveTrain.setPower(-Robot.oi.throttle,
-				                          Robot.oi.throttle);
-			} else if(this.direction == BACKWARD) {
-				Robot.driveTrain.setPower(Robot.oi.throttle,
-				                          -Robot.oi.throttle);
-			} else if (this.direction == LEFT_TURN) {
-				Robot.driveTrain.setPower(Robot.oi.throttle,
-				                          Robot.oi.throttle);
-	
-			} else if (this.direction == RIGHT_TURN) { 
-				Robot.driveTrain.setPower(-Robot.oi.throttle,
-				                          -Robot.oi.throttle);
+			if (this.direction == DriveDirection.FORWARD) {
+				Robot.driveTrain.setPower(-.75 * Robot.oi.throttle,
+						.75 * Robot.oi.throttle);
+			} else if (this.direction == DriveDirection.BACKWARD) {
+				Robot.driveTrain.setPower(.75 * Robot.oi.throttle, -.75
+						* Robot.oi.throttle);
+			} else if (this.direction == DriveDirection.LEFT_TURN) {
+				Robot.driveTrain.setPower(.5 * Robot.oi.throttle,
+						.5 * Robot.oi.throttle);
+
+			} else if (this.direction == DriveDirection.RIGHT_TURN) {
+				Robot.driveTrain.setPower(-.5 * Robot.oi.throttle, -.5
+						* Robot.oi.throttle);
 			}
 			cTime = System.currentTimeMillis();
 		} while (cTime - iTime <= period);

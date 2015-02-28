@@ -43,7 +43,11 @@ public class Lift extends Command {
 		if (OI.liftmode == lifterMode.MANUAL_MODE) {
 			lift(Robot.oi.getLiftSpeed());
 		} else if (OI.liftmode == lifterMode.AUTOMATIC_MODE) {
-			Robot.lifter.moveTo(1);
+			if (Robot.oi.getLiftSpeed() > 0) {
+				Robot.lifter.grabberMoveDown(1);
+			} else if (Robot.oi.getLiftSpeed() < 0) {
+				Robot.lifter.grabberMoveDown(1);
+			}
 		}
 		this.complete = true;
 	}

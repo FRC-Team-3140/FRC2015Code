@@ -20,9 +20,9 @@ public class GrabberLift extends Command {
 
 	public void moveLifter(double direction) {
 		if (direction > 0) {
-			Robot.lifter.grabberMoveUp(direction);
-		} else if (direction < 0) {
 			Robot.lifter.grabberMoveDown(direction);
+		} else if (direction < 0) {
+			Robot.lifter.grabberMoveUp(direction);
 		}
 
 	}
