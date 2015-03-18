@@ -76,6 +76,7 @@ public class OI {
 	public final static JoystickMode mode = JoystickMode.XBOX_MODE;
 	public static lifterMode liftmode = lifterMode.MANUAL_MODE;
 	public static boolean limitmode = false;
+	public static boolean competitionRobot = false;
 	private final static int leftJoystick = 0;
 	private final static int rightJoystick = 1;
 	private final static int xboxJoystick = 0;
@@ -91,7 +92,7 @@ public class OI {
 	private Button compressorOffButton;
 
 	public double throttle = 0.55;
-	public double liftSpeed = 0.8;
+	public double liftSpeed = 0.8; 
 
 	// private double piecewiseThreshA = 0.02;
 	// private double piecewiseMultA = 0.35;
@@ -128,8 +129,13 @@ public class OI {
 			this.joystick[xboxJoystick] = new Joystick(0);
 			this.switchButton = new JoystickButton(joystick[0], 1);
 			this.shifterButton = new JoystickButton(joystick[0], 2);
+			if (this.competitionRobot) {
 			this.liftUpButton = new JoystickButton(joystick[0], 3);
 			this.liftDownButton = new JoystickButton(joystick[0], 4);
+			} else {
+				this.liftDownButton = new JoystickButton(joystick[0], 3);
+				this.liftUpButton =  new JoystickButton(joystick[0], 4);
+			}
 			this.grabberOpenButton = new JoystickButton(joystick[0], 5);
 			this.grabberCloseButton = new JoystickButton(joystick[0], 6);
 			this.compressorOnButton = new JoystickButton(joystick[0], 8);

@@ -35,7 +35,6 @@ public class ArcadeDrive extends Command {
 		Robot.driveTrain.setRightPower(speed);
 	}
 
-
 	public void PIDDrive() {
 		leftPID.setSetpoint(Robot.oi.getLeftDriveAxis());
 		rightPID.setSetpoint(Robot.oi.getRightDriveAxis());
@@ -46,12 +45,14 @@ public class ArcadeDrive extends Command {
 		Robot.driveTrain.log();
 		SmartDashboard.putBoolean("currentStatus",
 				Robot.monitor.getMotorCurrentStatus());
-		if (Robot.oi.getShifterButton()) {
+		if (Robot.oi.getSwitchButton()) {
+			Robot.oi.throttle = 0.75;
 			Robot.driveTrain.upshift();
-		} else if (Robot.oi.getSwitchButton()) {
+		} else if (Robot.oi.getShifterButton()) {
+			Robot.oi.throttle = 0.55;
 			Robot.driveTrain.downshift();
 		}
-		
+
 		setSpeeds(Robot.oi.getLeftDriveAxis(), Robot.oi.getRightDriveAxis());
 	}
 

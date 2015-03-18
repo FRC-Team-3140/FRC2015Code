@@ -25,7 +25,7 @@ public class Electronics extends Subsystem implements IElectronics {
 		for (int i = 0; i < driveMotors.length; i++) {
 			tCur += pdp.getCurrent(driveMotors[i]);
 		}
-		SmartDashboard.putNumber("motorCurrent" ,tCur);
+		SmartDashboard.putNumber("motorCurrent", tCur);
 		if (tCur > curTolerance) {
 			return true;
 		}
@@ -35,9 +35,8 @@ public class Electronics extends Subsystem implements IElectronics {
 	public double getLifterCurrentStatus() {
 		return pdp.getCurrent(12);
 	}
-	
-	
-//	@Override
+
+	// @Override
 	public double[] getAcceleration() {
 		double[] vVals;
 		double xVal = accel.getX();

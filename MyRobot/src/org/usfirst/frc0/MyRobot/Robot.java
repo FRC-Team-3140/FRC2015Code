@@ -34,14 +34,13 @@ public class Robot extends IterativeRobot {
 
 	Command autonomousCommand;
 
-
 	public static OI oi;
 
 	public static DriveTrain driveTrain;
 	public static WinchLifter lifter;
 	public static GrabberArm grabber;
 	public static Electronics monitor;
-	
+
 	/**
 	 * This function is run when the robot is first started up and should be
 	 * used for any initialization code.
@@ -70,7 +69,9 @@ public class Robot extends IterativeRobot {
 	 * to reset subsystems before shutting down.
 	 */
 	public void disabledInit() {
-
+		Scheduler.getInstance().removeAll();
+		autonomousCommand.cancel();
+		
 	}
 
 	public void disabledPeriodic() {

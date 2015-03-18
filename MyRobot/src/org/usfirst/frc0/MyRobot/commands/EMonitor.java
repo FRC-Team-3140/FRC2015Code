@@ -13,7 +13,7 @@ public class EMonitor extends Command {
 
 	@Override
 	protected void initialize() {
-		
+
 	}
 
 	@Override

@@ -1,6 +1,7 @@
 package org.usfirst.frc0.MyRobot.commands;
 
 import org.usfirst.frc0.MyRobot.Robot;
+import org.usfirst.frc0.MyRobot.OI;
 
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -18,18 +19,34 @@ public class GrabberLift extends Command {
 		this.direction = direction;
 	}
 
-	public void moveLifter(double direction) {
-		if (direction > 0) {
-			Robot.lifter.grabberMoveDown(direction);
-		} else if (direction < 0) {
-			Robot.lifter.grabberMoveUp(direction);
+	public void moveLifter() {
+		long period = (long) (1000 * this.direction);
+		long cTime;
+		long iTime = System.currentTimeMillis();
+		if (this.direction > 0) {
+			if (OI.competitionRobot) {
+				this.direction = -Robot.oi.liftSpeed;
+			} else {
+				this.direction = Robot.oi.liftSpeed;
+			}
+		} else {
+			if (OI.competitionRobot) {
+				this.direction = Robot.oi.liftSpeed;
+			} else {
+				this.direction = -Robot.oi.liftSpeed;
+			}
+
 		}
+		do {
+			Robot.lifter.moveLift(this.direction);
+			cTime = System.currentTimeMillis();
+		} while (cTime - iTime <= period);
 
 	}
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
-		moveLifter(direction);
+		moveLifter();
 	}
 
 	// Called repeatedly when this Command is scheduled to run

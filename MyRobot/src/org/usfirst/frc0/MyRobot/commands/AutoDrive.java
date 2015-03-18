@@ -21,8 +21,12 @@ public class AutoDrive extends Command {
 	private static PIDController rightPID = RobotMap.rightPID;
 
 	private double distance;
+	private double leftSpeed;
+	private double rightSpeed;
+	private double liftSpeed;
 	private boolean lifting;
 	private DriveDirection direction;
+	private double throttle = Robot.oi.throttle * .75;
 
 	public AutoDrive(double distance, boolean lifting, DriveDirection direction) {
 		// Use requires() here to declare subsystem dependencies
@@ -34,6 +38,13 @@ public class AutoDrive extends Command {
 		this.lifting = lifting;
 	}
 
+	public AutoDrive(double distance, DriveDirection direction) {
+		requires(Robot.driveTrain);
+		this.distance = distance;
+		this.direction = direction;
+		this.lifting = false;
+	}
+
 	public AutoDrive(double distance, boolean lifting) {
 		// Use requires() here to declare subsystem dependencies
 		// eg. requires(chassis);
@@ -41,6 +52,15 @@ public class AutoDrive extends Command {
 		requires(Robot.driveTrain);
 		this.distance = distance;
 		this.lifting = lifting;
+		this.direction = DriveDirection.FORWARD;
+	}
+
+	public AutoDrive(double distance) {
+		// Use requires() here to declare subsystem dependencies
+		// eg. requires(chassis);
+		requires(Robot.driveTrain);
+		this.distance = distance;
+		this.lifting = false;
 		this.direction = DriveDirection.FORWARD;
 	}
 
@@ -54,60 +74,37 @@ public class AutoDrive extends Command {
 		 * rightPID.setAbsoluteTolerance(0.5); leftPID.enable();
 		 * rightPID.enable();
 		 */
-		if (this.lifting) {
-			this.liftDrive(distance * 1000);
-		} else {
-			this.drive(distance * 1000);
+		if (this.direction == DriveDirection.FORWARD) {
+			this.leftSpeed = -throttle;
+			this.rightSpeed = throttle;
+		} else if (this.direction == DriveDirection.BACKWARD) {
+			this.leftSpeed = throttle;
+			this.rightSpeed = -throttle;
+		} else if (this.direction == DriveDirection.LEFT_TURN) {
+			this.leftSpeed = throttle;
+			this.rightSpeed = throttle;
+		} else if (this.direction == DriveDirection.RIGHT_TURN) {
+			this.leftSpeed = -throttle;
+			this.rightSpeed = -throttle;
 		}
 
-	}
+		this.liftSpeed = (this.lifting) ? 1 : 0;
+		this.liftSpeed = (Robot.oi.competitionRobot) ? -Robot.oi.liftSpeed
+				* this.liftSpeed : Robot.oi.liftSpeed * this.liftSpeed;
+		this.drive(distance * 1000);
 
-	public void liftDrive(double period) {
-		period = (long) period;
-		long cTime;
-		long iTime = System.currentTimeMillis();
-		do {
-			if (this.direction == DriveDirection.FORWARD) {
-				Robot.driveTrain
-						.setPower(-Robot.oi.throttle, Robot.oi.throttle);
-			} else if (this.direction == DriveDirection.BACKWARD) {
-				Robot.driveTrain
-						.setPower(Robot.oi.throttle, -Robot.oi.throttle);
-			} else if (this.direction == DriveDirection.LEFT_TURN) {
-				Robot.driveTrain.setPower(Robot.oi.throttle, Robot.oi.throttle);
-
-			} else if (this.direction == DriveDirection.RIGHT_TURN) {
-				Robot.driveTrain.setPower(-Robot.oi.throttle,
-						-Robot.oi.throttle);
-			}
-			Robot.lifter.moveLift(-Robot.oi.liftSpeed);
-			cTime = System.currentTimeMillis();
-		} while (cTime - iTime <= period);
-		Robot.lifter.stop();
 	}
 
 	public void drive(double period) {
-		period = (long) period;
+		period = (long) Math.abs(period);
 		long cTime;
 		long iTime = System.currentTimeMillis();
 		do {
-			if (this.direction == DriveDirection.FORWARD) {
-				Robot.driveTrain.setPower(-.75 * Robot.oi.throttle,
-						.75 * Robot.oi.throttle);
-			} else if (this.direction == DriveDirection.BACKWARD) {
-				Robot.driveTrain.setPower(.75 * Robot.oi.throttle, -.75
-						* Robot.oi.throttle);
-			} else if (this.direction == DriveDirection.LEFT_TURN) {
-				Robot.driveTrain.setPower(.5 * Robot.oi.throttle,
-						.5 * Robot.oi.throttle);
-
-			} else if (this.direction == DriveDirection.RIGHT_TURN) {
-				Robot.driveTrain.setPower(-.5 * Robot.oi.throttle, -.5
-						* Robot.oi.throttle);
-			}
+			Robot.lifter.moveLift(this.liftSpeed);
+			Robot.driveTrain.setPower(this.leftSpeed, this.rightSpeed);
 			cTime = System.currentTimeMillis();
 		} while (cTime - iTime <= period);
-
+		Robot.lifter.stop();
 	}
 
 	// Called repeatedly when this Command is scheduled to run

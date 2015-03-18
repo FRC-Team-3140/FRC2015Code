@@ -24,14 +24,15 @@ import org.usfirst.frc0.MyRobot.commands.AutoDrive.DriveDirection;
 public class AutonomousCommand extends CommandGroup {
 
 	public enum StartingPlace {
-		LEFT_POS, MIDDLE_POS, RIGHT_POS
+		LEFT_POS, MIDDLE_POS, RIGHT_POS, TOTE_POS
 
 	};
 
-	private double moveLift;
 	private double drive;
 	private double finish;
+	private double moveLift;
 	private double rotate;
+	private double nascar;
 
 	private DriveDirection turnDirection;
 
@@ -42,6 +43,8 @@ public class AutonomousCommand extends CommandGroup {
 			return StartingPlace.MIDDLE_POS;
 		} else if (value == "right") {
 			return StartingPlace.RIGHT_POS;
+		} else if (value == "totes") {
+			return StartingPlace.TOTE_POS;
 		}
 		return StartingPlace.MIDDLE_POS;
 	}
@@ -53,16 +56,17 @@ public class AutonomousCommand extends CommandGroup {
 	 */
 	public AutonomousCommand() {
 
-		place = StartingPlace.MIDDLE_POS;
-		moveLift = 1;
-		drive = 5;
+		place = StartingPlace.TOTE_POS;
+		moveLift = .5;
+		drive = 6;
+		nascar = 7;
 		finish = 1.5;
 
 		switch (place) {
 		case LEFT_POS: {
 			drive = drive + finish * 0.5;
 			finish = 0;
-			rotate =3;
+			rotate = 3;
 			turnDirection = DriveDirection.LEFT_TURN;
 			break;
 		}
@@ -72,7 +76,7 @@ public class AutonomousCommand extends CommandGroup {
 			break;
 		}
 		case RIGHT_POS: {
-			rotate = 4;
+			rotate = 3;
 			turnDirection = DriveDirection.RIGHT_TURN;
 			break;
 		}
@@ -80,12 +84,29 @@ public class AutonomousCommand extends CommandGroup {
 			break;
 
 		}
-		addSequential(new GrabberLift(1.25));
+
 		addSequential(new GrabberClose());
-		addSequential(new AutoDrive(moveLift, true));
-		addSequential(new AutoDrive(drive, false, DriveDirection.FORWARD));
-		addSequential(new AutoDrive(finish, false));
-		addSequential(new AutoDrive(rotate, false, turnDirection));
+		if (place != StartingPlace.TOTE_POS) {
+			addSequential(new AutoDrive(moveLift, true, DriveDirection.BACKWARD));
+			addSequential(new AutoDrive(drive, false, DriveDirection.BACKWARD));
+			addSequential(new AutoDrive(nascar, DriveDirection.RIGHT_TURN));
+		} else {
+			// for (int x = 1; x < 2; x++) {
+			addSequential(new AutoDrive(.25));
+			addSequential(new GrabberLift(.125));
+			addSequential(new AutoDrive(1, DriveDirection.LEFT_TURN));
+			addSequential(new AutoDrive(1, DriveDirection.RIGHT_TURN));
+			addSequential(new GrabberLift(.25));
+			addSequential(new AutoDrive(2.5, DriveDirection.FORWARD));
+			addSequential(new GrabberOpen());
+			addSequential(new GrabberLift(-.75));
+			addSequential(new GrabberClose());
+			// }
+			addSequential(new AutoDrive(.65, DriveDirection.RIGHT_TURN));
+			addSequential(new AutoDrive(2));
+		}
+		// addSequential(new AutoDrive(finish, false));
+		// addSequential(new AutoDrive(rotate, false, turnDirection));
 	}
 
 	// Called just before this Command runs the first time

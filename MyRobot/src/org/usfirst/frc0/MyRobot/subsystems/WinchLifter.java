@@ -22,7 +22,7 @@ public class WinchLifter extends Subsystem implements ILifter {
 	private long period = 500; // in ms
 
 	public void moveLift(double power) {
-		if (Robot.oi.limitmode == true) {
+		if (Robot.oi.limitmode) {
 			if (power > 0) {
 				if (topLimitSwitch.get()) {
 					winchMotor.set(power);
@@ -66,7 +66,7 @@ public class WinchLifter extends Subsystem implements ILifter {
 	}
 
 	public void grabberMoveDown(double rotations) {
-		long period = this.period * (long) rotations;
+		long period = (long) (this.period * rotations);
 		long cTime;
 		long iTime = System.currentTimeMillis();
 		do {

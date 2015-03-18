@@ -32,7 +32,7 @@ public class DriveTrain extends Subsystem {
 	public void setPower(double leftPower, double rightPower) {
 		setLeftPower(leftPower);
 		setRightPower(rightPower);
-	}	
+	}
 
 	public void upshift() {
 		shifterSolenoid.set(DoubleSolenoid.Value.kForward);
@@ -48,10 +48,10 @@ public class DriveTrain extends Subsystem {
 	 * The log method puts interesting information to the SmartDashboard.
 	 */
 	public void log() {
-	
+
 		SmartDashboard.putNumber("Right Distance", rightEncoder.getDistance());
 		SmartDashboard.putNumber("Right Speed", rightEncoder.getRate());
-		
+
 		SmartDashboard.putNumber("Left Speed", leftEncoder.getRate());
 		SmartDashboard.putNumber("Left Distance", leftEncoder.getDistance());
 	}
@@ -70,10 +70,10 @@ public class DriveTrain extends Subsystem {
 
 	@Override
 	protected void initDefaultCommand() {
-		//leftEncoder.setDistancePerPulse(0.067631);
-		//rightEncoder.setDistancePerPulse(0.067631);
-		//leftEncoder.setDistancePerPulse(1.0);
-		//rightEncoder.setDistancePerPulse(1.0);
+		// leftEncoder.setDistancePerPulse(0.067631);
+		// rightEncoder.setDistancePerPulse(0.067631);
+		// leftEncoder.setDistancePerPulse(1.0);
+		// rightEncoder.setDistancePerPulse(1.0);
 		leftEncoder.reset();
 		rightEncoder.reset();
 
