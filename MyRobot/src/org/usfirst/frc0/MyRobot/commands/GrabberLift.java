@@ -11,6 +11,9 @@ import edu.wpi.first.wpilibj.command.Command;
 public class GrabberLift extends Command {
 
 	double direction;
+	long currentTime;
+	long initialTime;
+	long period;
 
 	public GrabberLift(double direction) {
 		// Use requires() here to declare subsystem dependencies
@@ -18,44 +21,35 @@ public class GrabberLift extends Command {
 		requires(Robot.lifter);
 		this.direction = direction;
 	}
-
-	public void moveLifter() {
-		long period = (long) (1000 * this.direction);
-		long cTime;
-		long iTime = System.currentTimeMillis();
+	
+	// Called just before this Command runs the first time
+	protected void initialize() {
+		this.period = (long) (this.direction * 1000);
+		this.initialTime = System.currentTimeMillis();
 		if (this.direction > 0) {
 			if (OI.competitionRobot) {
 				this.direction = -Robot.oi.liftSpeed;
 			} else {
 				this.direction = Robot.oi.liftSpeed;
 			}
-		} else {
+		} else if (this.direction != 0){
 			if (OI.competitionRobot) {
 				this.direction = Robot.oi.liftSpeed;
 			} else {
 				this.direction = -Robot.oi.liftSpeed;
 			}
-
 		}
-		do {
-			Robot.lifter.moveLift(this.direction);
-			cTime = System.currentTimeMillis();
-		} while (cTime - iTime <= period);
-
-	}
-
-	// Called just before this Command runs the first time
-	protected void initialize() {
-		moveLifter();
 	}
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
+		Robot.lifter.moveLift(this.direction);
+		this.currentTime = System.currentTimeMillis();
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
-		return true;
+		return (this.currentTime - this.initialTime > period);
 	}
 
 	// Called once after isFinished returns true

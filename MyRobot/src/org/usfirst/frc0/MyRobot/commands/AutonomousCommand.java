@@ -88,22 +88,26 @@ public class AutonomousCommand extends CommandGroup {
 		addSequential(new GrabberClose());
 		if (place != StartingPlace.TOTE_POS) {
 			addSequential(new AutoDrive(moveLift, true, DriveDirection.BACKWARD));
-			addSequential(new AutoDrive(drive, false, DriveDirection.BACKWARD));
+			addSequential(new AutoDrive(drive, DriveDirection.BACKWARD));
 			addSequential(new AutoDrive(nascar, DriveDirection.RIGHT_TURN));
 		} else {
 			// for (int x = 1; x < 2; x++) {
-			addSequential(new AutoDrive(.25));
-			addSequential(new GrabberLift(.125));
-			addSequential(new AutoDrive(1, DriveDirection.LEFT_TURN));
-			addSequential(new AutoDrive(1, DriveDirection.RIGHT_TURN));
-			addSequential(new GrabberLift(.25));
-			addSequential(new AutoDrive(2.5, DriveDirection.FORWARD));
+			addSequential(new GrabberClose());
+			addSequential(new AutoDrive(0.5, DriveDirection.LEFT_TURN));
+			addSequential(new AutoDrive(1.25));
+			addSequential(new AutoDrive(0.9, DriveDirection.RIGHT_TURN));
+			addSequential(new AutoDrive(.9));
+			addSequential(new AutoDrive(0.6, DriveDirection.LEFT_TURN));
+			addSequential(new AutoDrive(1.25, true));
+			addSequential(new AutoDrive(1.25));
+			addSequential(new GrabberLift(-0.5));
 			addSequential(new GrabberOpen());
-			addSequential(new GrabberLift(-.75));
+			/*addSequential(new GrabberLift(-0.5));
+			addSequential(new GrabberLift(0.75));
 			addSequential(new GrabberClose());
 			// }
-			addSequential(new AutoDrive(.65, DriveDirection.RIGHT_TURN));
-			addSequential(new AutoDrive(2));
+			addSequential(new AutoDrive(1.5, DriveDirection.RIGHT_TURN));
+			addSequential(new AutoDrive(2));*/
 		}
 		// addSequential(new AutoDrive(finish, false));
 		// addSequential(new AutoDrive(rotate, false, turnDirection));
