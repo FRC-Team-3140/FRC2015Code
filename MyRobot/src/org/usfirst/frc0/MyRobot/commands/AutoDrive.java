@@ -75,7 +75,7 @@ public class AutoDrive extends Command {
 		 * rightPID.enable();
 		 */
 		if (this.direction == DriveDirection.FORWARD) {
-			this.leftSpeed = -throttle;
+			this.leftSpeed = -.95 * throttle;
 			this.rightSpeed = throttle;
 		} else if (this.direction == DriveDirection.BACKWARD) {
 			this.leftSpeed = throttle;

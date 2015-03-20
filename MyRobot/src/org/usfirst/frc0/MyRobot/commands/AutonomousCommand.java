@@ -98,20 +98,18 @@ public class AutonomousCommand extends CommandGroup {
 			addSequential(new AutoDrive(1.5, DriveDirection.RIGHT_TURN));
 			addSequential(new AutoDrive(1.35));
 			addSequential(new AutoDrive(0.8, true, DriveDirection.LEFT_TURN));
-			addSequential(new AutoDrive(0.25, true));
-			addSequential(new AutoDrive(1.75));
+			addSequential(new AutoDrive(0.5, true));
+			addSequential(new AutoDrive(1.5));
 			addSequential(new GrabberOpen());
 			addSequential(new AutoDrive(0.35, DriveDirection.BACKWARD));
-			
-			addSequential(new GrabberLift(-0.75));
+			addParallel(new GrabberLift(-0.75));
 			addSequential(new AutoDrive(0.75));
-			addSequential(new GrabberClose()); 
-			/*
-			 * addSequential(new GrabberLift(0.75));
-			 * 
-			 * // } addSequential(new AutoDrive(1.5,
-			 * DriveDirection.RIGHT_TURN)); addSequential(new AutoDrive(2));
-			 */
+			addSequential(new GrabberClose());
+			addParallel(new GrabberLift(0.75));
+
+			addSequential(new AutoDrive(1.5, DriveDirection.RIGHT_TURN));
+			addSequential(new AutoDrive(3));
+
 		}
 		// addSequential(new AutoDrive(finish, false));
 		// addSequential(new AutoDrive(rotate, false, turnDirection));

@@ -93,6 +93,7 @@ public class OI {
 
 	public double throttle = 0.55;
 	public double liftSpeed = 0.8;
+	private double initialLiftSpeed = this.liftSpeed;
 
 	// private double piecewiseThreshA = 0.02;
 	// private double piecewiseMultA = 0.35;
@@ -249,6 +250,7 @@ public class OI {
 			} else if (liftDownButton.get()) {
 				return -1.0 * liftSpeed;
 			} else {
+				this.liftSpeed = this.initialLiftSpeed;
 				return 0.0;
 			}
 		}
