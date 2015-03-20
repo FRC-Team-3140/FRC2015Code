@@ -92,7 +92,7 @@ public class OI {
 	private Button compressorOffButton;
 
 	public double throttle = 0.55;
-	public double liftSpeed = 0.8; 
+	public double liftSpeed = 0.8;
 
 	// private double piecewiseThreshA = 0.02;
 	// private double piecewiseMultA = 0.35;
@@ -130,11 +130,11 @@ public class OI {
 			this.switchButton = new JoystickButton(joystick[0], 1);
 			this.shifterButton = new JoystickButton(joystick[0], 2);
 			if (this.competitionRobot) {
-			this.liftUpButton = new JoystickButton(joystick[0], 3);
-			this.liftDownButton = new JoystickButton(joystick[0], 4);
+				this.liftUpButton = new JoystickButton(joystick[0], 3);
+				this.liftDownButton = new JoystickButton(joystick[0], 4);
 			} else {
 				this.liftDownButton = new JoystickButton(joystick[0], 3);
-				this.liftUpButton =  new JoystickButton(joystick[0], 4);
+				this.liftUpButton = new JoystickButton(joystick[0], 4);
 			}
 			this.grabberOpenButton = new JoystickButton(joystick[0], 5);
 			this.grabberCloseButton = new JoystickButton(joystick[0], 6);
@@ -243,7 +243,7 @@ public class OI {
 			}
 		}
 		case XBOX_MODE: {
-			liftSpeed = Math.abs(liftSpeed + 0.05 * joystick[0].getRawAxis(3));
+			liftSpeed = Math.abs(liftSpeed + 0.05 * joystick[0].getRawAxis(3) - 0.05 * joystick[0].getRawAxis(2));
 			if (liftUpButton.get()) {
 				return liftSpeed;
 			} else if (liftDownButton.get()) {

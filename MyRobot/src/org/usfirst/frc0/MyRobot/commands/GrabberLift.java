@@ -47,7 +47,7 @@ public class GrabberLift extends Command {
 				this.speed = -Robot.oi.liftSpeed;
 			}
 		}
-		this.period = (long) (this.direction * 1000);
+		this.period = (long) (Math.abs(this.direction) * 1000);
 		lifty(this.period);
 	}
 
