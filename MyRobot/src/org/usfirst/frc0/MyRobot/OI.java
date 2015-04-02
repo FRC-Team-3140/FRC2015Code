@@ -73,10 +73,14 @@ public class OI {
 		MANUAL_MODE, AUTOMATIC_MODE
 	}
 
+	public enum ShifterMode {
+		UPSHIFT, DOWNSHIFT, UPSPEED, DOWNSPEED, DRIFTING
+	}
+
 	public final static JoystickMode mode = JoystickMode.XBOX_MODE;
 	public static lifterMode liftmode = lifterMode.MANUAL_MODE;
 	public static boolean limitmode = false;
-	public static boolean competitionRobot = false;
+	public static boolean competitionRobot = true;
 	private final static int leftJoystick = 0;
 	private final static int rightJoystick = 1;
 	private final static int xboxJoystick = 0;
@@ -151,9 +155,10 @@ public class OI {
 			double joystickDeadzone) {
 		if (Math.abs(rawJoystickValue) > joystickDeadzone) {
 			return rawJoystickValue;
+		} else {
+			throttle = 0.55;
+			return 0.0;
 		}
-
-		return 0.0;
 	}
 
 	private double joystickAdjustment(double rawJoystickValue) {
@@ -216,6 +221,10 @@ public class OI {
 	}
 
 	public double getLeftDriveAxis() {
+		if (!(joystick[0].getRawButton(3) || joystick[0].getRawButton(4))) {
+			throttle = Math.abs(throttle + 0.05 * joystick[0].getRawAxis(3)
+					- 0.05 * joystick[0].getRawAxis(2));
+		}
 		return joystickAdjustment(getRawLeftDriveAxis());
 	}
 
@@ -244,7 +253,8 @@ public class OI {
 			}
 		}
 		case XBOX_MODE: {
-			liftSpeed = Math.abs(liftSpeed + 0.05 * joystick[0].getRawAxis(3) - 0.05 * joystick[0].getRawAxis(2));
+			liftSpeed = Math.abs(liftSpeed + 0.05 * joystick[0].getRawAxis(3)
+					- 0.05 * joystick[0].getRawAxis(2));
 			if (liftUpButton.get()) {
 				return liftSpeed;
 			} else if (liftDownButton.get()) {

@@ -74,6 +74,7 @@ public class AutoDrive extends Command {
 		 * rightPID.setAbsoluteTolerance(0.5); leftPID.enable();
 		 * rightPID.enable();
 		 */
+		this.distance = 0.65 * this.distance;
 		if (this.direction == DriveDirection.FORWARD) {
 			this.leftSpeed = -.95 * throttle;
 			this.rightSpeed = throttle;
@@ -91,6 +92,7 @@ public class AutoDrive extends Command {
 		this.liftSpeed = (this.lifting) ? 1 : 0;
 		this.liftSpeed = (Robot.oi.competitionRobot) ? -Robot.oi.liftSpeed
 				* this.liftSpeed : Robot.oi.liftSpeed * this.liftSpeed;
+
 		this.drive(distance * 1000);
 
 	}

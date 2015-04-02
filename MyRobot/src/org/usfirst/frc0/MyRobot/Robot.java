@@ -71,7 +71,7 @@ public class Robot extends IterativeRobot {
 	public void disabledInit() {
 		Scheduler.getInstance().removeAll();
 		autonomousCommand.cancel();
-		
+
 	}
 
 	public void disabledPeriodic() {
@@ -105,12 +105,9 @@ public class Robot extends IterativeRobot {
 	 * This function is called periodically during operator control
 	 */
 	public void teleopPeriodic() {
-		new EMonitor();
-		if (OI.mode == JoystickMode.XBOX_MODE) {
-			new ArcadeDrive();
-		} else {
-			new TankDrive();
-		}
+		// new EMonitor();
+		new ArcadeDrive();
+		// new TankDrive();
 		new Lift();
 		new Grabber();
 		Scheduler.getInstance().run();
