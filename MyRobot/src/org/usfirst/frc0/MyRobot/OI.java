@@ -222,8 +222,8 @@ public class OI {
 
 	public double getLeftDriveAxis() {
 		if (!(joystick[0].getRawButton(3) || joystick[0].getRawButton(4))) {
-			throttle = Math.abs(throttle + 0.05 * joystick[0].getRawAxis(3)
-					- 0.05 * joystick[0].getRawAxis(2));
+			throttle = Math.abs(throttle + 0.01 * joystick[0].getRawAxis(3)
+					- 0.01 * joystick[0].getRawAxis(2));
 		}
 		return joystickAdjustment(getRawLeftDriveAxis());
 	}

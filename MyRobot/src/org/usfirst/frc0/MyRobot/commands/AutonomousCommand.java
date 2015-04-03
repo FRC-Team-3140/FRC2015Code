@@ -44,7 +44,7 @@ public class AutonomousCommand extends CommandGroup {
 		place = StartingPlace.MIDDLE_POS;
 		moveLift = .5;
 		drive = 6;
-		nascar = 3;
+		nascar = 1.7;
 
 		switch (place) {
 		case LEFT_POS:{
@@ -53,7 +53,6 @@ public class AutonomousCommand extends CommandGroup {
 			break;
 		}
 		case MIDDLE_POS:
-			turnDirection = DriveDirection.RIGHT_TURN;
 		case RIGHT_POS: 
 			turnDirection = DriveDirection.RIGHT_TURN;
 			break;
