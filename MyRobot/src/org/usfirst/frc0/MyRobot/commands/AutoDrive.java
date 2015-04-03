@@ -76,7 +76,7 @@ public class AutoDrive extends Command {
 		 */
 		this.distance = 0.65 * this.distance;
 		if (this.direction == DriveDirection.FORWARD) {
-			this.leftSpeed = -.95 * throttle;
+			this.leftSpeed = -throttle;
 			this.rightSpeed = throttle;
 		} else if (this.direction == DriveDirection.BACKWARD) {
 			this.leftSpeed = throttle;
@@ -88,10 +88,11 @@ public class AutoDrive extends Command {
 			this.leftSpeed = -throttle;
 			this.rightSpeed = -throttle;
 		}
-
+		
 		this.liftSpeed = (this.lifting) ? 1 : 0;
-		this.liftSpeed = (Robot.oi.competitionRobot) ? -Robot.oi.liftSpeed
-				* this.liftSpeed : Robot.oi.liftSpeed * this.liftSpeed;
+		this.liftSpeed = (Robot.oi.competitionRobot)
+				? -Robot.oi.liftSpeed * this.liftSpeed
+				:  Robot.oi.liftSpeed * this.liftSpeed;
 
 		this.drive(distance * 1000);
 
