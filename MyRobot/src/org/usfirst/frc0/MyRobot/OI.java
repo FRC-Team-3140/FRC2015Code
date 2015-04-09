@@ -80,7 +80,7 @@ public class OI {
 	public final static JoystickMode mode = JoystickMode.XBOX_MODE;
 	public static lifterMode liftmode = lifterMode.MANUAL_MODE;
 	public static boolean limitmode = false;
-	public static boolean competitionRobot = true;
+	public static boolean competitionRobot = false;
 	private final static int leftJoystick = 0;
 	private final static int rightJoystick = 1;
 	private final static int xboxJoystick = 0;

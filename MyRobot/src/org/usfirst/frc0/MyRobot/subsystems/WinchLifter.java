@@ -29,7 +29,7 @@ public class WinchLifter extends Subsystem implements ILifter {
 				}
 			} else if (power != 0) {
 				if (bottomLimitSwitch.get()) {
-					winchMotor.set(power);
+					winchMotor.set(power * .65);
 				}
 			}
 		} else {

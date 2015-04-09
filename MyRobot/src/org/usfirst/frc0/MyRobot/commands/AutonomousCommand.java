@@ -41,10 +41,10 @@ public class AutonomousCommand extends CommandGroup {
 	 */
 	public AutonomousCommand() {
 
-		place = StartingPlace.MIDDLE_POS;
+		place = StartingPlace.LEFT_POS;
 		moveLift = .5;
 		drive = 6;
-		nascar = 1.7;
+		nascar = 1;
 
 		switch (place) {
 		case LEFT_POS:{
@@ -58,7 +58,6 @@ public class AutonomousCommand extends CommandGroup {
 			break;
 		default:
 			break;
-
 		}
 
 		addSequential(new GrabberClose());
