@@ -73,10 +73,6 @@ public class OI {
 		MANUAL_MODE, AUTOMATIC_MODE
 	}
 
-	public enum ShifterMode {
-		UPSHIFT, DOWNSHIFT, UPSPEED, DOWNSPEED, DRIFTING
-	}
-
 	public final static JoystickMode mode = JoystickMode.XBOX_MODE;
 	public static lifterMode liftmode = lifterMode.MANUAL_MODE;
 	public static boolean limitmode = false;
@@ -132,8 +128,8 @@ public class OI {
 		case XBOX_MODE: {
 			this.joystick = new Joystick[1];
 			this.joystick[xboxJoystick] = new Joystick(0);
-			this.switchButton = new JoystickButton(joystick[0], 1);
-			this.shifterButton = new JoystickButton(joystick[0], 2);
+			this.switchButton = new JoystickButton(joystick[0], 2);
+			this.shifterButton = new JoystickButton(joystick[0], 1);
 			if (this.competitionRobot) {
 				this.liftUpButton = new JoystickButton(joystick[0], 3);
 				this.liftDownButton = new JoystickButton(joystick[0], 4);
@@ -282,21 +278,21 @@ public class OI {
 		}
 	}
 
-	public boolean switchLifterMode() {
-		if (switchButton.get() && liftmode == lifterMode.MANUAL_MODE) {
-			liftmode = lifterMode.AUTOMATIC_MODE;
-		} else if (switchButton.get() && liftmode == lifterMode.AUTOMATIC_MODE) {
-			liftmode = lifterMode.MANUAL_MODE;
-		}
-		return false;
-	}
 
 	public boolean getSwitchButton() {
-		return switchButton.get();
+		boolean result = switchButton.get();
+		if (result && this.liftmode != lifterMode.MANUAL_MODE){
+			this.liftmode = lifterMode.MANUAL_MODE;
+		}
+		return result;
 
 	}
 
 	public boolean getShifterButton() {
-		return shifterButton.get();
+		boolean result = shifterButton.get();
+		if (result && this.liftmode != lifterMode.AUTOMATIC_MODE){
+			this.liftmode = lifterMode.AUTOMATIC_MODE;
+		}
+		return result;
 	}
 }

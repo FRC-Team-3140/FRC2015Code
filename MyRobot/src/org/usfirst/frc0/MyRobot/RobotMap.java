@@ -35,7 +35,7 @@ public class RobotMap {
 	public static SpeedController rightDriveMotor;
 	public static SpeedController winchMotor;
 	public static SpeedController binWinchMotor;
-	
+
 	public static PIDController leftPID;
 	public static PIDController rightPID;
 	// Instantiating RobotDrive
@@ -65,7 +65,7 @@ public class RobotMap {
 	public static int grabberSolenoidClosePin = 7;
 	public static int shifterSolenoidUpPin = 4;
 	public static int shifterSolenoidDownPin = 5;
-	
+
 	public static double Kp = 1.0;
 	public static double Ki = 0.0;
 	public static double Kd = 0.0;
@@ -82,11 +82,6 @@ public class RobotMap {
 		LiveWindow.addActuator("driveTrain", "Right Motor",
 				(Talon) rightDriveMotor);
 
-		shifterSolenoid = new DoubleSolenoid(shifterSolenoidUpPin,
-				shifterSolenoidDownPin);
-		LiveWindow.addActuator("driveTrain", "Gearbox Shifter",
-				(DoubleSolenoid) shifterSolenoid);
-
 		winchMotor = new Talon(winchMotorPin);
 		LiveWindow.addActuator("chainLifter", "Elevator Motor",
 				(Talon) winchMotor);
@@ -95,21 +90,21 @@ public class RobotMap {
 		// ENCODERS AND PID
 		// SHENANIGANS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 		leftEncoder = new Encoder(2, 3);
-		//SmartDashboard.putNumber("Left Encoder", leftEncoder.getRate());
+		// SmartDashboard.putNumber("Left Encoder", leftEncoder.getRate());
 		leftEncoder.setDistancePerPulse(0.042);
 		leftEncoder.setPIDSourceParameter(PIDSourceParameter.kDistance);
 		leftPID = new PIDController(Kp, Ki, Kd, Kf, leftEncoder, leftDriveMotor);
 
-		
 		rightEncoder = new Encoder(1, 0);
-		//SmartDashboard.putNumber("Right Encoder", rightEncoder.getRate());
+		// SmartDashboard.putNumber("Right Encoder", rightEncoder.getRate());
 		rightEncoder.setDistancePerPulse(0.042);
 		rightEncoder.setPIDSourceParameter(PIDSourceParameter.kDistance);
-		rightPID = new PIDController(Kp, Ki, Kd, Kf, rightEncoder, rightDriveMotor);
-		
+		rightPID = new PIDController(Kp, Ki, Kd, Kf, rightEncoder,
+				rightDriveMotor);
+
 		topLimitSwitch = new DigitalInput(8);
 		bottomLimitSwitch = new DigitalInput(9);
-		
+
 		robotDrive = new RobotDrive(leftDriveMotor, rightDriveMotor);
 
 		robotDrive.setSafetyEnabled(true);
@@ -119,6 +114,11 @@ public class RobotMap {
 
 		robotDrive.setInvertedMotor(RobotDrive.MotorType.kRearLeft, false);
 		robotDrive.setInvertedMotor(RobotDrive.MotorType.kRearRight, false);
+
+		shifterSolenoid = new DoubleSolenoid(shifterSolenoidUpPin,
+				shifterSolenoidDownPin);
+		LiveWindow.addActuator("grabber", "Upper Grabber Solenoid",
+				(DoubleSolenoid) shifterSolenoid);
 
 		grabberSolenoid = new DoubleSolenoid(grabberSolenoidOpenPin,
 				grabberSolenoidClosePin);

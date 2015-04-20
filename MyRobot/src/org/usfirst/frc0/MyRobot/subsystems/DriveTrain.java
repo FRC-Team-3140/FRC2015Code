@@ -36,24 +36,19 @@ public class DriveTrain extends Subsystem {
 
 	public void upshift() {
 		shifterSolenoid.set(DoubleSolenoid.Value.kForward);
-		shifterSolenoid.set(DoubleSolenoid.Value.kOff);
 	}
 
 	public void downshift() {
 		shifterSolenoid.set(DoubleSolenoid.Value.kReverse);
-		shifterSolenoid.set(DoubleSolenoid.Value.kOff);
 	}
 
 	/**
-	 * The log method puts interesting information to the SmartDashboard.
+	 * The log method puts current draw from the motors to the SmartDashboard.
 	 */
 	public void log() {
 
-		SmartDashboard.putNumber("Right Distance", rightEncoder.getDistance());
-		SmartDashboard.putNumber("Right Speed", rightEncoder.getRate());
-
-		SmartDashboard.putNumber("Left Speed", leftEncoder.getRate());
-		SmartDashboard.putNumber("Left Distance", leftEncoder.getDistance());
+		SmartDashboard.putNumber("currentStatus",
+				Robot.monitor.getMotorCurrentStatus());
 	}
 
 	public void reset() {

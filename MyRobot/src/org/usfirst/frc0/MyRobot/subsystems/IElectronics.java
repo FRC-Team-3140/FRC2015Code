@@ -5,7 +5,7 @@ package org.usfirst.frc0.MyRobot.subsystems;
  */
 public interface IElectronics {
 
-	public boolean getMotorCurrentStatus();
+	public double getMotorCurrentStatus();
 
 	public double[] getAcceleration();
 

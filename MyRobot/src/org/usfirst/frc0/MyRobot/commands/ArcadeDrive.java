@@ -1,6 +1,6 @@
 package org.usfirst.frc0.MyRobot.commands;
 
-import org.usfirst.frc0.MyRobot.OI.ShifterMode;
+import org.usfirst.frc0.MyRobot.OI;
 import org.usfirst.frc0.MyRobot.Robot;
 import org.usfirst.frc0.MyRobot.RobotMap;
 import org.usfirst.frc0.MyRobot.subsystems.Electronics;
@@ -44,14 +44,6 @@ public class ArcadeDrive extends Command {
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
 		Robot.driveTrain.log();
-		SmartDashboard.putBoolean("currentStatus",
-				Robot.monitor.getMotorCurrentStatus());
-		if (Robot.oi.getShifterButton()) {
-			Robot.driveTrain.downshift();
-		}
-		if (Robot.oi.getSwitchButton()) {
-			Robot.driveTrain.upshift();
-		}
 		setSpeeds(Robot.oi.getLeftDriveAxis(), Robot.oi.getRightDriveAxis());
 	}
 
