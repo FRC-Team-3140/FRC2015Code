@@ -46,7 +46,6 @@ public class DriveTrain extends Subsystem {
 	 * The log method puts current draw from the motors to the SmartDashboard.
 	 */
 	public void log() {
-
 		SmartDashboard.putNumber("currentStatus",
 				Robot.monitor.getMotorCurrentStatus());
 	}

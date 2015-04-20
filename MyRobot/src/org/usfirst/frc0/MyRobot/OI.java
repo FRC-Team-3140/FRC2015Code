@@ -278,10 +278,9 @@ public class OI {
 		}
 	}
 
-
 	public boolean getSwitchButton() {
 		boolean result = switchButton.get();
-		if (result && this.liftmode != lifterMode.MANUAL_MODE){
+		if (result && this.liftmode != lifterMode.MANUAL_MODE) {
 			this.liftmode = lifterMode.MANUAL_MODE;
 		}
 		return result;
@@ -290,7 +289,7 @@ public class OI {
 
 	public boolean getShifterButton() {
 		boolean result = shifterButton.get();
-		if (result && this.liftmode != lifterMode.AUTOMATIC_MODE){
+		if (result && this.liftmode != lifterMode.AUTOMATIC_MODE) {
 			this.liftmode = lifterMode.AUTOMATIC_MODE;
 		}
 		return result;
