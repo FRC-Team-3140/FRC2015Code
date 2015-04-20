@@ -33,7 +33,6 @@ public class Lift extends Command {
 
 	public void moveLift(double rotations) {
 		Robot.lifter.moveTo(rotations);
-
 	}
 
 	// Called repeatedly when this Command is scheduled to run
@@ -43,10 +42,11 @@ public class Lift extends Command {
 		if (OI.liftmode == lifterMode.MANUAL_MODE) {
 			lift(Robot.oi.getLiftSpeed());
 		} else if (OI.liftmode == lifterMode.AUTOMATIC_MODE) {
+			lift(Robot.oi.getLiftSpeed());
 			if (Robot.oi.getLiftSpeed() > 0) {
-				Robot.lifter.grabberMoveDown(1);
+				Robot.grabber.grabberClose();
 			} else if (Robot.oi.getLiftSpeed() < 0) {
-				Robot.lifter.grabberMoveDown(1);
+
 			}
 		}
 		this.complete = true;

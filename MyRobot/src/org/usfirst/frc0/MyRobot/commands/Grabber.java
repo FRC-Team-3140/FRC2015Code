@@ -33,6 +33,18 @@ public class Grabber extends Command {
 		Robot.grabber.grabberStop();
 	}
 
+	public void upperOpen() {
+		Robot.grabber.grabberOpen();
+	}
+
+	public void upperClose() {
+		Robot.grabber.grabberClose();
+	}
+
+	public void upperStop() {
+		Robot.grabber.grabberStop();
+	}
+
 	public void turnOnCompressor() {
 		Robot.grabber.startCompressor();
 	}
@@ -44,7 +56,15 @@ public class Grabber extends Command {
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
 		OI.GrabberState state = Robot.oi.getGrabberButton();
-		SmartDashboard.putString("state", state.toString());
+		boolean openState = Robot.oi.getSwitchButton();
+		boolean closeState = Robot.oi.getShifterButton();
+		if (openState) {
+			upperOpen();
+			close();
+		}
+		if (closeState) {
+			upperClose();
+		}
 		switch (state) {
 		case OPEN: {
 			open();

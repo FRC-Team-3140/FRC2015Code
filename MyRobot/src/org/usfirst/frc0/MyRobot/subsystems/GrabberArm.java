@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class GrabberArm extends Subsystem implements IGrabber {
 	private DoubleSolenoid grabberSolenoid = RobotMap.grabberSolenoid;
+	private DoubleSolenoid shifterSolenoid = RobotMap.shifterSolenoid;
 	private Compressor compressor = RobotMap.compressor;
 
 	public void grabberOpen() {
@@ -26,6 +27,19 @@ public class GrabberArm extends Subsystem implements IGrabber {
 		grabberSolenoid.set(DoubleSolenoid.Value.kOff);
 	}
 
+	public void upperGrabberOpen() {
+		shifterSolenoid.set(DoubleSolenoid.Value.kForward);
+	}
+
+	public void upperGrabberClose() {
+		shifterSolenoid.set(DoubleSolenoid.Value.kReverse);
+	}
+
+	public void upperGrabberStop() {
+		shifterSolenoid.set(DoubleSolenoid.Value.kOff);
+	}	
+	
+	
 	public void startCompressor() {
 		compressor.start();
 		compressor.setClosedLoopControl(true);
